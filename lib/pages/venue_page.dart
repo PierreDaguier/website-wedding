@@ -1,53 +1,71 @@
 import 'package:flutter/material.dart';
 import '../widgets/responsive_scaffold.dart';
+import '../localization.dart';
 
 /// Page présentant les informations sur le lieu de la cérémonie et le
 /// programme détaillé de la journée.
 class VenuePage extends StatelessWidget {
-  const VenuePage({super.key});
+  final void Function(Locale)? onLocaleChange;
+
+  const VenuePage({super.key, this.onLocaleChange});
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return ResponsiveScaffold(
-      title: 'Programme',
+      titleKey: 'navProgram',
+      onLocaleChange: onLocaleChange,
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Se rendre à la salle',
+              loc.translate('venueHeading'),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            const Text(
-              'La cérémonie et la réception auront lieu au Domaine des Cygnes, '
-              '1234 Route des Fleurs, Brisbane, QLD, Australie.',
-              style: TextStyle(fontSize: 16),
+            Text(
+              loc.translate('venueDescription'),
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
             Text(
-              'Accès',
+              loc.translate('venueAccessHeading'),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            const Text(
-              'En voiture : un parking gratuit est disponible sur place.\n'
-              'En taxi / VTC : réservez votre course en précisant l’adresse.\n'
-              'Transports en commun : la ligne de bus 12 s’arrête à 300 m du domaine.',
-              style: TextStyle(fontSize: 16),
+            Text(
+              loc.translate('venueAccessDescription'),
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 16),
+            // Placeholder pour la carte
+            Container(
+              height: 200,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                loc.translate('mapPlaceholder'),
+                style:
+                    const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+              ),
             ),
             const SizedBox(height: 16),
             Text(
-              'Programme de la journée',
+              loc.translate('venueProgramHeading'),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            _programItem('15h30', 'Arrivée des invités'),
-            _programItem('16h00', 'Cérémonie'),
-            _programItem('17h00', 'Cocktail'),
-            _programItem('19h00', 'Dîner'),
-            _programItem('21h00', 'Soirée dansante'),
+            _programItem('15h30', loc.translate('venueProgram1')),
+            _programItem('16h00', loc.translate('venueProgram2')),
+            _programItem('17h00', loc.translate('venueProgram3')),
+            _programItem('19h00', loc.translate('venueProgram4')),
+            _programItem('21h00', loc.translate('venueProgram5')),
           ],
         ),
       ),

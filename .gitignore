@@ -1,15 +1,11 @@
 # Flutter / Dart
 .dart_tool/
 .packages
-.pub-cache/
-.pub/
+.flutter-plugins
+.flutter-plugins-dependencies
 build/
 
-# Web build output (optionnel à versionner)
-# Décommente si tu NE veux PAS versionner le build web
-# build/web/
-
-# IDEs
+# IDE
 .vscode/
 .idea/
 *.iml
@@ -17,10 +13,17 @@ build/
 # OS
 .DS_Store
 Thumbs.db
-
-# Logs
 *.log
 
-# Environment / secrets
-.env
-.env.*
+# Android
+android/.gradle/
+android/local.properties
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+
+# Optional
+coverage/
+
+

@@ -1,30 +1,63 @@
 import 'package:flutter/material.dart';
 import '../widgets/responsive_scaffold.dart';
+import '../localization.dart';
+import 'package:go_router/go_router.dart';
 
 /// Page d'accueil du site de mariage.
 ///
 /// Cette page comporte un bandeau visuel (hero) avec une photo et un
 /// titre, ainsi qu'un texte d'introduction. Le bandeau utilise une
 /// surcouche sombre pour améliorer la lisibilité du titre sur la photo.
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+/// Page d'accueil avec effet de fondu sur l'image de couverture.
+class HomePage extends StatefulWidget {
+  final void Function(Locale)? onLocaleChange;
+
+  const HomePage({super.key, this.onLocaleChange});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  double _opacity = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Démarre l'animation de fondu après un court délai pour éviter les glitchs.
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (mounted) {
+        setState(() => _opacity = 1.0);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    final langCode = Localizations.localeOf(context).languageCode;
+    final heroAsset = langCode == 'en'
+        ? 'assets/images/hero_en.png'
+        : 'assets/images/hero_fr.png';
     return ResponsiveScaffold(
-      title: 'Accueil',
+      titleKey: 'navHome',
+      onLocaleChange: widget.onLocaleChange,
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // Section visuelle principale
+            // Bandeau visuel avec effet de fondu
             Stack(
               alignment: Alignment.center,
               children: [
-                Image.asset(
-                  'assets/images/hero.png',
-                  width: double.infinity,
-                  height: 300,
-                  fit: BoxFit.cover,
+                AnimatedOpacity(
+                  duration: const Duration(seconds: 1),
+                  opacity: _opacity,
+                  child: Image.asset(
+                    heroAsset,
+                    width: double.infinity,
+                    height: 300,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Container(
                   width: double.infinity,
@@ -34,7 +67,7 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Joanne & Pierre',
+                    loc.translate('homeTitle'),
                     style: Theme.of(context).textTheme.displaySmall?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -50,14 +83,22 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Bienvenue sur notre site de mariage !',
+                    loc.translate('homeWelcome'),
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Nous sommes ravis de partager avec vous cette journée exceptionnelle. '
-                    'Sur ce site, vous trouverez toutes les informations nécessaires pour préparer votre venue et profiter de chaque moment.',
-                    style: TextStyle(fontSize: 16),
+                  Text(
+                    loc.translate('homeIntro'),
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 16),
+                  // Bouton d'appel à l'action (ex : RSVP)
+                  ElevatedButton(
+                    onPressed: () {
+                      // Pour un exemple, on navigue vers la page Programme
+                      context.go('/venue');
+                    },
+                    child: Text(loc.translate('homeCta')),
                   ),
                 ],
               ),

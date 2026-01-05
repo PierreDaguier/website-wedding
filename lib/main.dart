@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'theme.dart';
+import 'localization.dart';
 import 'pages/home_page.dart';
 import 'pages/venue_page.dart';
 import 'pages/australia_page.dart';
@@ -14,8 +16,25 @@ void main() {
   runApp(const WeddingApp());
 }
 
-class WeddingApp extends StatelessWidget {
+/// Application principale dotée de la prise en charge des langues.
+class WeddingApp extends StatefulWidget {
   const WeddingApp({super.key});
+
+  @override
+  State<WeddingApp> createState() => _WeddingAppState();
+}
+
+class _WeddingAppState extends State<WeddingApp> {
+  /// Locale courante de l'application. Par défaut le français.
+  Locale _locale = const Locale('fr');
+
+  /// Change la langue de l'application.
+  void _setLocale(Locale locale) {
+    if (!AppLocalizations.isSupported(locale)) return;
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,26 +43,34 @@ class WeddingApp extends StatelessWidget {
       routes: [
         GoRoute(
           path: '/',
-          builder: (context, state) => const HomePage(),
+          builder: (context, state) => HomePage(onLocaleChange: _setLocale),
         ),
         GoRoute(
           path: '/venue',
-          builder: (context, state) => const VenuePage(),
+          builder: (context, state) => VenuePage(onLocaleChange: _setLocale),
         ),
         GoRoute(
           path: '/australia',
-          builder: (context, state) => const AustraliaPage(),
+          builder: (context, state) => AustraliaPage(onLocaleChange: _setLocale),
         ),
         GoRoute(
           path: '/contact',
-          builder: (context, state) => const ContactPage(),
+          builder: (context, state) => ContactPage(onLocaleChange: _setLocale),
         ),
       ],
     );
     return MaterialApp.router(
-      title: 'Mariage Joanne & Pierre',
+      title: AppLocalizations(_locale).translate('appTitle'),
       routerConfig: router,
       theme: AppTheme.theme,
+      locale: _locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       debugShowCheckedModeBanner: false,
     );
   }

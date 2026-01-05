@@ -1,65 +1,62 @@
 import 'package:flutter/material.dart';
 import '../widgets/responsive_scaffold.dart';
+import '../localization.dart';
 
 /// Page regroupant les informations pour voyager en Australie.
 class AustraliaPage extends StatelessWidget {
-  const AustraliaPage({super.key});
+  final void Function(Locale)? onLocaleChange;
+
+  const AustraliaPage({super.key, this.onLocaleChange});
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return ResponsiveScaffold(
-      title: 'Australie',
+      titleKey: 'navAustralia',
+      onLocaleChange: onLocaleChange,
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Voyager vers l’Australie',
+              loc.translate('australiaHeading1'),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Vérifiez la validité de votre passeport. '
-              'La plupart des voyageurs auront besoin d’un visa pour entrer en Australie.',
-              style: TextStyle(fontSize: 16),
+            Text(
+              loc.translate('australiaText1'),
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
             Text(
-              'Visa',
+              loc.translate('australiaHeading2'),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            const Text(
-              '• ETA (Electronic Travel Authority)\n'
-              '• eVisitor\n\n'
-              'Faites votre demande plusieurs semaines avant le départ.',
-              style: TextStyle(fontSize: 16),
+            Text(
+              loc.translate('australiaText2'),
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
             Text(
-              'Santé & assurances',
+              loc.translate('australiaHeading3'),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            const Text(
-              '• Souscrivez une assurance voyage couvrant la santé et l’annulation\n'
-              '• Vérifiez vos vaccins\n'
-              '• Prévoyez un chapeau, de la crème solaire et restez hydraté ! ☀️',
-              style: TextStyle(fontSize: 16),
+            Text(
+              loc.translate('australiaText3'),
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
             Text(
-              'Conseils pratiques',
+              loc.translate('australiaHeading4'),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            const Text(
-              '• Prises électriques de type I (prévoir un adaptateur)\n'
-              '• Décalage horaire : +8 à +10 heures selon la saison\n'
-              '• Conduite à gauche\n'
-              '• Paiement par carte largement accepté',
-              style: TextStyle(fontSize: 16),
+            Text(
+              loc.translate('australiaText4'),
+              style: const TextStyle(fontSize: 16),
             ),
           ],
         ),
