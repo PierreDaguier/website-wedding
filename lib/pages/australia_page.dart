@@ -16,11 +16,12 @@ class AustraliaPage extends StatelessWidget {
       onLocaleChange: onLocaleChange,
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Sous-bannière pour la page Australie
-            Container(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final bool wide = constraints.maxWidth >= 900;
+            final bool medium = constraints.maxWidth >= 600 && constraints.maxWidth < 900;
+            // Sous-bannière
+            final Widget subBanner = Container(
               height: 160,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor.withOpacity(0.15),
@@ -32,86 +33,73 @@ class AustraliaPage extends StatelessWidget {
                 loc.translate('australiaPageTitle'),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-            ),
-            const SizedBox(height: 16),
-            // Cartes pour chaque rubrique
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      loc.translate('australiaHeading1'),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      loc.translate('australiaText1'),
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
+            );
+            // Fonction pour créer une carte à partir d'une clé de titre et de texte
+            Widget buildCard(String headingKey, String textKey) {
+              return Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        loc.translate(headingKey),
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        loc.translate(textKey),
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      loc.translate('australiaHeading2'),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      loc.translate('australiaText2'),
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      loc.translate('australiaHeading3'),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      loc.translate('australiaText3'),
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      loc.translate('australiaHeading4'),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      loc.translate('australiaText4'),
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+              );
+            }
+            final cards = [
+              buildCard('australiaHeading1', 'australiaText1'),
+              buildCard('australiaHeading2', 'australiaText2'),
+              buildCard('australiaHeading3', 'australiaText3'),
+              buildCard('australiaHeading4', 'australiaText4'),
+            ];
+
+            Widget buildGrid(int columns) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  subBanner,
+                  const SizedBox(height: 16),
+                  Wrap(
+                    spacing: 16,
+                    runSpacing: 16,
+                    children: cards
+                        .map((card) => SizedBox(
+                              width: (constraints.maxWidth - (columns - 1) * 16) / columns,
+                              child: card,
+                            ))
+                        .toList(),
+                  ),
+                ],
+              );
+            }
+            if (wide) {
+              // 2 colonnes sur écran large
+              return buildGrid(2);
+            } else if (medium) {
+              // 2 colonnes sur écran moyen
+              return buildGrid(2);
+            } else {
+              // Une seule colonne sur mobile
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  subBanner,
+                  const SizedBox(height: 16),
+                  ...cards,
+                ],
+              );
+            }
+          },
         ),
       ),
     );

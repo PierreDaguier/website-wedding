@@ -46,19 +46,45 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Bandeau visuel réactif : conserve le ratio de l'image afin de
-            // supprimer les effets de rognage. L'effet de fondu est conservé.
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: AnimatedOpacity(
-                duration: const Duration(seconds: 1),
-                opacity: _opacity,
-                child: Image.asset(
-                  heroAsset,
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
-                ),
-              ),
+            // Bandeau visuel réactif : la hauteur s'ajuste en fonction de la
+            // taille de l'écran et ne dépasse pas une fraction de la hauteur
+            // totale. Cela évite que l'image ne prenne tout l'écran sur les
+            // grands moniteurs. Le ratio 16/9 est conservé et l'effet de
+            // fondu est maintenu.
+            Builder(
+              builder: (context) {
+                final size = MediaQuery.of(context).size;
+                final double width = size.width;
+                final double height = size.height;
+                // Hauteur idéale basée sur le ratio 16:9 de l'image
+                final double ratioHeight = width * 9.0 / 16.0;
+                // Définir une hauteur maximale en fonction de la taille de l'écran
+                double maxHeight;
+                if (width < 600) {
+                  // Écrans mobiles : bandeau limité à 35 % de la hauteur
+                  maxHeight = height * 0.35;
+                } else if (width < 1024) {
+                  // Tablettes / écrans moyens : 45 %
+                  maxHeight = height * 0.45;
+                } else {
+                  // Desktop : 50 %
+                  maxHeight = height * 0.50;
+                }
+                // La hauteur finale est la plus petite entre le ratio et la limite
+                final double heroHeight = ratioHeight < maxHeight ? ratioHeight : maxHeight;
+                return SizedBox(
+                  height: heroHeight,
+                  child: AnimatedOpacity(
+                    duration: const Duration(seconds: 1),
+                    opacity: _opacity,
+                    child: Image.asset(
+                      heroAsset,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                );
+              },
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
