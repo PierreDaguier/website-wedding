@@ -14,36 +14,57 @@ class ContactPage extends StatelessWidget {
     return ResponsiveScaffold(
       titleKey: 'navContacts',
       onLocaleChange: onLocaleChange,
-      child: ListView(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        children: [
-          Text(
-            loc.translate('contactHeading'),
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 8),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: Text(loc.translate('contactJoanne')),
-            subtitle: const Text('joanne@example.com'),
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: Text(loc.translate('contactPierre')),
-            subtitle: const Text('pierre@example.com'),
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.phone),
-            title: Text(loc.translate('contactPhone')),
-            subtitle: const Text('+61 4 00 00 00 00'),
-          ),
-          ListTile(
-            leading: const Icon(Icons.email),
-            title: Text(loc.translate('contactEmailGeneral')),
-            subtitle: const Text('mariage.joanne.pierre@example.com'),
-          ),
-        ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Sous-bannière de la page Contacts
+            Container(
+              height: 160,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                loc.translate('contactHeading'),
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Card(
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.person),
+                    title: Text(loc.translate('contactJoanne')),
+                    subtitle: const Text('joanne@example.com'),
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.person),
+                    title: Text(loc.translate('contactPierre')),
+                    subtitle: const Text('pierre@example.com'),
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.phone),
+                    title: Text(loc.translate('contactPhone')),
+                    subtitle: const Text('+61 4 00 00 00 00'),
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.email),
+                    title: Text(loc.translate('contactEmailGeneral')),
+                    subtitle: const Text('mariage.joanne.pierre@example.com'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

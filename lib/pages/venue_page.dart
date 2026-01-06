@@ -18,54 +18,102 @@ class VenuePage extends StatelessWidget {
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              loc.translate('venueHeading'),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              loc.translate('venueDescription'),
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              loc.translate('venueAccessHeading'),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              loc.translate('venueAccessDescription'),
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            // Placeholder pour la carte
+            // Sous-bannière pour introduire la page Programme
             Container(
-              height: 200,
-              width: double.infinity,
+              height: 160,
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: Theme.of(context).primaryColor.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(12),
               ),
-              alignment: Alignment.center,
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                loc.translate('mapPlaceholder'),
-                style:
-                    const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                loc.translate('venueHeading'),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              loc.translate('venueProgramHeading'),
-              style: Theme.of(context).textTheme.titleLarge,
+            // Carte d'information principale
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loc.translate('venueDescription'),
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      loc.translate('venueAccessHeading'),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      loc.translate('venueAccessDescription'),
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            const SizedBox(height: 8),
-            _programItem('15h30', loc.translate('venueProgram1')),
-            _programItem('16h00', loc.translate('venueProgram2')),
-            _programItem('17h00', loc.translate('venueProgram3')),
-            _programItem('19h00', loc.translate('venueProgram4')),
-            _programItem('21h00', loc.translate('venueProgram5')),
+            // Carte pour la carte (bientôt disponible)
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loc.translate('mapTitle'),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          loc.translate('mapPlaceholder'),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Carte pour le programme détaillé
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loc.translate('venueProgramHeading'),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    _programItem('15h30', loc.translate('venueProgram1')),
+                    _programItem('16h00', loc.translate('venueProgram2')),
+                    _programItem('17h00', loc.translate('venueProgram3')),
+                    _programItem('19h00', loc.translate('venueProgram4')),
+                    _programItem('21h00', loc.translate('venueProgram5')),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -29,12 +29,16 @@ class AppTheme {
         backgroundColor: seed,
         foregroundColor: Colors.white,
       ),
-      textTheme: GoogleFonts.montserratTextTheme().apply(
-        fontFamilyFallback: ['Noto Sans', 'Roboto'],
-        bodyColor: Colors.black87,
-        displayColor: Colors.black87,
+      textTheme: const TextTheme(
+        headlineSmall: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w600,
+        ),
+        titleMedium: TextStyle(
+          fontSize: 16,
+          height: 1.6,
+        ),
       ),
-
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: seed,
@@ -47,6 +51,17 @@ class AppTheme {
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: seed,
         foregroundColor: Colors.white,
+      ),
+      // Définition d'un thème de carte par défaut pour harmoniser les marges,
+      // le rayon de bordure et l'ombre portée sur toutes les pages. Cela
+      // contribue à donner un aspect soigné et cohérent aux différentes
+      // sections du site.
+      cardTheme: CardThemeData(
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        elevation: 4,
       ),
       cardColor: Colors.white,
       dividerColor: Colors.grey.shade300,

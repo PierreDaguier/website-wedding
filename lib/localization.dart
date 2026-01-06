@@ -68,6 +68,10 @@ class AppLocalizations {
       'languageFr': 'Français',
       'languageEn': 'English',
       'homeCta': 'Découvrir le programme',
+      // Titre utilisé pour le card de carte sur la page Programme
+      'mapTitle': 'Localisation',
+      // Texte du pied de page, l'année actuelle remplacera {year}
+      'footerText': '© {year} Joanne & Pierre – Tous droits réservés',
     },
     'en': {
       'appTitle': 'Joanne & Pierre Wedding',
@@ -115,6 +119,8 @@ class AppLocalizations {
       'languageFr': 'Français',
       'languageEn': 'English',
       'homeCta': 'Discover the programme',
+      'mapTitle': 'Location',
+      'footerText': '© {year} Joanne & Pierre – All rights reserved',
     },
   };
 

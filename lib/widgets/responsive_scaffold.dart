@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 /// menu sont définis dans une liste de cartes contenant le label, l'icône
 /// et la route. L'élément sélectionné est mis en valeur.
 import '../localization.dart';
+import 'footer.dart';
 
 /// Scaffold adaptatif intégrant un menu de navigation et un sélecteur de langue.
 class ResponsiveScaffold extends StatelessWidget {
@@ -33,25 +34,21 @@ class ResponsiveScaffold extends StatelessWidget {
       builder: (context, constraints) {
         final bool desktop = constraints.maxWidth >= 800;
         final router = GoRouter.of(context);
+        // Utilise GoRouterState pour récupérer l'URI courante. La propriété
+        // `location` n'est plus disponible directement sur GoRouter depuis
+        // la version 13 : on passe par l'état de route pour obtenir le
+        // chemin actuel, sans les éventuels paramètres de requête.
         final String currentRoute = GoRouterState.of(context).uri.path;
         final loc = AppLocalizations.of(context);
         final navItems = [
           {'labelKey': 'navHome', 'icon': Icons.home, 'route': '/'},
           {'labelKey': 'navProgram', 'icon': Icons.event, 'route': '/venue'},
-          {
-            'labelKey': 'navAustralia',
-            'icon': Icons.flight_takeoff,
-            'route': '/australia'
-          },
-          {
-            'labelKey': 'navContacts',
-            'icon': Icons.contact_mail,
-            'route': '/contact'
-          },
+          {'labelKey': 'navAustralia', 'icon': Icons.flight_takeoff, 'route': '/australia'},
+          {'labelKey': 'navContacts', 'icon': Icons.contact_mail, 'route': '/contact'},
         ];
-        final int selectedIndex =
-            navItems.indexWhere((item) => item['route'] == currentRoute);
+        final int selectedIndex = navItems.indexWhere((item) => item['route'] == currentRoute);
         if (desktop) {
+          // Disposition en ligne : rail de navigation à gauche et contenu à droite.
           return Row(
             children: [
               NavigationRail(
@@ -93,12 +90,19 @@ class ResponsiveScaffold extends StatelessWidget {
                       ),
                     ],
                   ),
-                  body: child,
+                  // Le corps est enveloppé dans une colonne pour inclure le pied de page.
+                  body: Column(
+                    children: [
+                      Expanded(child: child),
+                      const FooterWidget(),
+                    ],
+                  ),
                 ),
               ),
             ],
           );
         } else {
+          // Disposition mobile : AppBar + Drawer + corps avec pied de page.
           return Scaffold(
             appBar: AppBar(
               title: Text(loc.translate(titleKey)),
@@ -153,7 +157,12 @@ class ResponsiveScaffold extends StatelessWidget {
                 ],
               ),
             ),
-            body: child,
+            body: Column(
+              children: [
+                Expanded(child: child),
+                const FooterWidget(),
+              ],
+            ),
           );
         }
       },

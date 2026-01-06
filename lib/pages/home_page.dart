@@ -44,38 +44,21 @@ class _HomePageState extends State<HomePage> {
       onLocaleChange: widget.onLocaleChange,
       child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Bandeau visuel avec effet de fondu
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                AnimatedOpacity(
-                  duration: const Duration(seconds: 1),
-                  opacity: _opacity,
-                  child: Image.asset(
-                    heroAsset,
-                    width: double.infinity,
-                    height: 300,
-                    fit: BoxFit.cover,
-                  ),
+            // Bandeau visuel réactif : conserve le ratio de l'image afin de
+            // supprimer les effets de rognage. L'effet de fondu est conservé.
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: AnimatedOpacity(
+                duration: const Duration(seconds: 1),
+                opacity: _opacity,
+                child: Image.asset(
+                  heroAsset,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 300,
-                  color: Colors.black.withOpacity(0.4),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    loc.translate('homeTitle'),
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -92,10 +75,8 @@ class _HomePageState extends State<HomePage> {
                     style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(height: 16),
-                  // Bouton d'appel à l'action (ex : RSVP)
                   ElevatedButton(
                     onPressed: () {
-                      // Pour un exemple, on navigue vers la page Programme
                       context.go('/venue');
                     },
                     child: Text(loc.translate('homeCta')),

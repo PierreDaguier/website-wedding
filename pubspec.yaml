@@ -5,16 +5,14 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-    sdk: ">=3.0.0 <4.0.0"
+  sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-
+  # Mise à jour de go_router pour bénéficier des API récentes (GoRouterState)
   go_router: ^13.2.0
-  google_fonts: ^6.1.0
-
-  
+  google_fonts: ^6.0.0
   # Ajout du support de localisation et du package Intl pour la traduction
   flutter_localizations:
     sdk: flutter
