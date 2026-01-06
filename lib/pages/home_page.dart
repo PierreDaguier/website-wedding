@@ -21,6 +21,75 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double _opacity = 0.0;
 
+  /// Construit une section alternant texte et image. Si [reverse] est vrai,
+  /// l'image et le texte sont inversés sur les écrans larges. Sur mobile,
+  /// les éléments sont empilés dans l'ordre.
+  Widget _buildSection({
+    required BuildContext context,
+    required String imageAsset,
+    required String title,
+    required String content,
+    required String buttonLabel,
+    required String buttonRoute,
+    bool reverse = false,
+  }) {
+    final List<Widget> children = [
+      Expanded(
+        flex: 1,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Image.asset(
+            imageAsset,
+            fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
+          ),
+        ),
+      ),
+      const SizedBox(width: 24, height: 24),
+      Expanded(
+        flex: 1,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              content,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => context.go(buttonRoute),
+              child: Text(buttonLabel),
+            ),
+          ],
+        ),
+      ),
+    ];
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isWide = constraints.maxWidth >= 800;
+        final List<Widget> arrangedChildren =
+            reverse && isWide ? children.reversed.toList() : children;
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          child: isWide
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: arrangedChildren,
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: arrangedChildren,
+                ),
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -60,15 +129,25 @@ class _HomePageState extends State<HomePage> {
                 final double ratioHeight = width * 9.0 / 16.0;
                 // Définir une hauteur maximale en fonction de la taille de l'écran
                 double maxHeight;
+                // Calcule une hauteur maximale basée sur le type d'écran afin
+                // d'éviter que la bannière ne prenne toute la hauteur et de
+                // préserver un aspect harmonieux sans pixellisation. Les
+                // valeurs ci-dessous s'inspirent des meilleures pratiques en
+                // design responsive (ex : Squarespace, Webflow).
                 if (width < 600) {
-                  // Écrans mobiles : bandeau limité à 35 % de la hauteur
-                  maxHeight = height * 0.35;
+                  // Téléphones : limités à 40 % de la hauteur
+                  maxHeight = height * 0.40;
                 } else if (width < 1024) {
-                  // Tablettes / écrans moyens : 45 %
+                  // Tablettes / écrans moyens : limités à 45 %
                   maxHeight = height * 0.45;
                 } else {
-                  // Desktop : 50 %
-                  maxHeight = height * 0.50;
+                  // Grands écrans : limités à 45 % pour garder de l'espace
+                  maxHeight = height * 0.45;
+                }
+                // Option : ne pas dépasser une hauteur absolue (en pixels)
+                const double absoluteMaxHeight = 700.0;
+                if (maxHeight > absoluteMaxHeight) {
+                  maxHeight = absoluteMaxHeight;
                 }
                 // La hauteur finale est la plus petite entre le ratio et la limite
                 final double heroHeight = ratioHeight < maxHeight ? ratioHeight : maxHeight;
@@ -110,6 +189,36 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            // Sections supplémentaires alternant image et texte pour guider
+            // l'utilisateur vers les autres pages clés du site. Le choix des
+            // images utilise l'autre version linguistique pour varier.
+            Builder(builder: (context) {
+              final String altImage = langCode == 'en'
+                  ? 'assets/images/hero_fr.png'
+                  : 'assets/images/hero_en.png';
+              return Column(
+                children: [
+                  _buildSection(
+                    context: context,
+                    imageAsset: heroAsset,
+                    title: loc.translate('venueHeading'),
+                    content: loc.translate('venueDescription'),
+                    buttonLabel: loc.translate('navProgram'),
+                    buttonRoute: '/venue',
+                    reverse: false,
+                  ),
+                  _buildSection(
+                    context: context,
+                    imageAsset: altImage,
+                    title: loc.translate('australiaHeading1'),
+                    content: loc.translate('australiaText1'),
+                    buttonLabel: loc.translate('navAustralia'),
+                    buttonRoute: '/australia',
+                    reverse: true,
+                  ),
+                ],
+              );
+            }),
           ],
         ),
       ),
