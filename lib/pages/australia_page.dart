@@ -33,46 +33,80 @@ class AustraliaPage extends StatelessWidget {
           final cards = [
             _TravelInfoCardData(
               icon: Icons.public,
-              title: 'Tourist Visa (eVisitor)',
-              summary: 'Free for European citizens. Valid for 3 months.',
-              details: const TextSpan(
-                text:
-                    'Most European passport holders need an ',
+              title: loc.translate('australiaVisaTitle'),
+              summary: loc.translate('australiaVisaSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaVisaDetailsIntro'),
                 children: [
                   TextSpan(
-                    text: 'eVisitor (Subclass 651)',
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                    text: loc.translate('australiaVisaDetailsHighlight'),
+                    style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
-                    text:
-                        '. It is completely free and allows you to stay for up to 3 months. Don\'t pay for third-party agencies!',
+                    text: loc.translate('australiaVisaDetailsOutro'),
                   ),
                 ],
               ),
-              actionLabel: 'Apply on Official Govt Site',
+              actionLabel: loc.translate('australiaVisaAction'),
               actionUrl: 'https://immi.homeaffairs.gov.au',
               primaryAction: true,
+              actionIsButton: true,
             ),
             _TravelInfoCardData(
               icon: Icons.directions_car,
-              title: 'On the Road',
-              summary: 'We drive on the LEFT. Strict speed limits.',
-              details: const TextSpan(
-                text:
-                    'Keep left! Speed cameras are everywhere and tolerance is low. Your domestic license is usually valid if it\'s in English, otherwise carry an International Driving Permit.',
+              title: loc.translate('australiaRoadTitle'),
+              summary: loc.translate('australiaRoadSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaRoadDetails'),
               ),
             ),
             _TravelInfoCardData(
               icon: Icons.eco,
-              title: 'Customs & Borders',
-              summary: 'Strict rules on food and organic items.',
-              details: const TextSpan(
-                text:
-                    'Australia has the strictest biosecurity in the world. You must DECLARE all food, wood, or plant materials on your incoming passenger card. If in doubt, declare it.',
+              title: loc.translate('australiaCustomsTitle'),
+              summary: loc.translate('australiaCustomsSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaCustomsDetails'),
               ),
-              actionLabel: 'Check what you can bring',
+              actionLabel: loc.translate('australiaCustomsAction'),
               actionUrl:
                   'https://www.abf.gov.au/entering-and-leaving-australia',
+              actionColor: Color(0xFFD4AF37),
+              actionIsButton: true,
+            ),
+            _TravelInfoCardData(
+              icon: Icons.shield,
+              title: loc.translate('australiaSafetyTitle'),
+              summary: loc.translate('australiaSafetySummary'),
+              details: TextSpan(
+                text: loc.translate('australiaSafetyDetails'),
+              ),
+            ),
+            _TravelInfoCardData(
+              icon: Icons.wifi,
+              title: loc.translate('australiaConnectedTitle'),
+              summary: loc.translate('australiaConnectedSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaConnectedDetails'),
+              ),
+              actionLabel: loc.translate('australiaConnectedAction'),
+              actionUrl:
+                  'https://www.telstra.com.au/mobile-phones/prepaid-mobiles',
+              actionIsButton: true,
+            ),
+            _TravelInfoCardData(
+              icon: Icons.map,
+              title: loc.translate('australiaTransportTitle'),
+              summary: loc.translate('australiaTransportSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaTransportDetails'),
+              ),
+              modalLinks: [
+                _ModalLink(
+                  label: loc.translate('australiaTransportLinkLabel'),
+                  url: 'https://translink.com.au/',
+                ),
+              ],
+              useModal: true,
             ),
           ];
           final double cardWidth =
@@ -128,6 +162,10 @@ class _TravelInfoCardData {
   final String? actionLabel;
   final String? actionUrl;
   final bool primaryAction;
+  final bool actionIsButton;
+  final Color? actionColor;
+  final bool useModal;
+  final List<_ModalLink> modalLinks;
 
   const _TravelInfoCardData({
     required this.icon,
@@ -137,7 +175,18 @@ class _TravelInfoCardData {
     this.actionLabel,
     this.actionUrl,
     this.primaryAction = false,
+    this.actionIsButton = false,
+    this.actionColor,
+    this.useModal = false,
+    this.modalLinks = const [],
   });
+}
+
+class _ModalLink {
+  final String label;
+  final String url;
+
+  const _ModalLink({required this.label, required this.url});
 }
 
 class _ExpandableInfoCard extends StatefulWidget {
@@ -161,6 +210,49 @@ class _ExpandableInfoCardState extends State<_ExpandableInfoCard> {
     setState(() => _expanded = !_expanded);
   }
 
+  void _showModal() {
+    final card = widget.card;
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        final bodyStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: const Color(0xFF1B3B36),
+              height: 1.6,
+            );
+        return AlertDialog(
+          title: Text(card.title),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text.rich(card.details, style: bodyStyle),
+              if (card.modalLinks.isNotEmpty) ...[
+                const SizedBox(height: 16),
+                for (final link in card.modalLinks)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: _ActionLink(
+                      label: link.label,
+                      url: link.url,
+                      primary: true,
+                      actionColor: Theme.of(context).colorScheme.secondary,
+                      isButton: true,
+                    ),
+                  ),
+              ],
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final accent = Theme.of(context).colorScheme.secondary;
@@ -174,7 +266,7 @@ class _ExpandableInfoCardState extends State<_ExpandableInfoCard> {
       onExit: (_) => _setHovered(false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: _toggleExpanded,
+        onTap: widget.card.useModal ? _showModal : _toggleExpanded,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           transform: Matrix4.translationValues(0, _hovered ? -5 : 0, 0),
@@ -234,10 +326,17 @@ class _ExpandableInfoCardState extends State<_ExpandableInfoCard> {
                         widget.card.actionUrl != null)
                       Padding(
                         padding: const EdgeInsets.only(top: 16),
-                        child: _ActionLink(
-                          label: widget.card.actionLabel!,
-                          url: widget.card.actionUrl!,
-                          primary: widget.card.primaryAction,
+                        child: Align(
+                          alignment: widget.card.actionIsButton
+                              ? Alignment.center
+                              : Alignment.centerLeft,
+                          child: _ActionLink(
+                            label: widget.card.actionLabel!,
+                            url: widget.card.actionUrl!,
+                            primary: widget.card.primaryAction,
+                            isButton: widget.card.actionIsButton,
+                            actionColor: widget.card.actionColor,
+                          ),
                         ),
                       ),
                   ],
@@ -259,11 +358,15 @@ class _ActionLink extends StatelessWidget {
   final String label;
   final String url;
   final bool primary;
+  final bool isButton;
+  final Color? actionColor;
 
   const _ActionLink({
     required this.label,
     required this.url,
     this.primary = false,
+    this.isButton = false,
+    this.actionColor,
   });
 
   @override
@@ -273,21 +376,28 @@ class _ActionLink extends StatelessWidget {
       uri: Uri.parse(url),
       target: LinkTarget.blank,
       builder: (context, followLink) {
-        if (primary) {
+        if (primary || isButton) {
+          final baseColor =
+              actionColor ?? theme.colorScheme.secondary;
           return ElevatedButton(
             onPressed: followLink,
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.resolveWith<Color>(
                 (states) {
                   if (states.contains(MaterialState.hovered)) {
-                    return theme.colorScheme.secondary.withOpacity(0.9);
+                    return baseColor.withOpacity(0.9);
                   }
-                  return theme.colorScheme.secondary;
+                  return baseColor;
                 },
               ),
               foregroundColor: MaterialStateProperty.all(Colors.white),
               padding: MaterialStateProperty.all(
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              ),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
             child: Text(label),
