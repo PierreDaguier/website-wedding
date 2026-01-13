@@ -7,12 +7,24 @@ import 'pages/home_page.dart';
 import 'pages/venue_page.dart';
 import 'pages/australia_page.dart';
 import 'pages/contact_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Point d'entrée de l'application.
 ///
 /// Configure le routeur et initialise l'application avec le thème
 /// défini dans `AppTheme`. Le debug banner est désactivé.
-void main() {
+Future<void> main() async {
+  // 1. On s'assure que Flutter est bien initialisé avant de charger le fichier
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 2. On charge le fichier .env
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    print("Erreur de chargement du .env: $e");
+  }
+
+  // 3. On lance l'app
   runApp(const WeddingApp());
 }
 
@@ -51,7 +63,8 @@ class _WeddingAppState extends State<WeddingApp> {
         ),
         GoRoute(
           path: '/australia',
-          builder: (context, state) => AustraliaPage(onLocaleChange: _setLocale),
+          builder: (context, state) =>
+              AustraliaPage(onLocaleChange: _setLocale),
         ),
         GoRoute(
           path: '/contact',
