@@ -2,6 +2,25 @@
 
 A new Flutter project.
 
+## Secrets
+
+Les renseignements personnels sont chargés via un fichier `secrets.json` non
+versionné. Pour le créer :
+
+1. Dupliquez `secrets.sample.json` en `secrets.json`.
+2. Remplissez les valeurs.
+3. Lancez l'app avec `--dart-define-from-file=secrets.json` :
+
+```
+flutter run -d chrome --dart-define-from-file=secrets.json
+```
+
+Pour une build web :
+
+```
+flutter build web --dart-define-from-file=secrets.json
+```
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

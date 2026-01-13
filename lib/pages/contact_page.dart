@@ -12,6 +12,7 @@ class ContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
+    String displayValue(String value) => value.isNotEmpty ? value : '—';
     return ResponsiveScaffold(
       titleKey: 'navContacts',
       onLocaleChange: onLocaleChange,
@@ -59,26 +60,33 @@ class ContactPage extends StatelessWidget {
                             ListTile(
                               leading: const Icon(Icons.person),
                               title: Text(loc.translate('contactJoanne')),
-                              subtitle: const Text('joanne@example.com'),
+                              subtitle: Text(
+                                displayValue(ContactConfig.emailJoanne),
+                              ),
                             ),
                             const Divider(height: 1),
                             ListTile(
                               leading: const Icon(Icons.person),
                               title: Text(loc.translate('contactPierre')),
-                              subtitle: const Text('pierre@example.com'),
+                              subtitle: Text(
+                                displayValue(ContactConfig.emailPierre),
+                              ),
                             ),
                             const Divider(height: 1),
                             ListTile(
                               leading: const Icon(Icons.phone),
                               title: Text(loc.translate('contactPhone')),
-                              subtitle: const Text('+61 4 00 00 00 00'),
+                              subtitle: Text(
+                                displayValue(ContactConfig.phoneContact),
+                              ),
                             ),
                             const Divider(height: 1),
                             ListTile(
                               leading: const Icon(Icons.email),
                               title: Text(loc.translate('contactEmailGeneral')),
-                              subtitle: const Text(
-                                  'mariage.joanne.pierre@example.com'),
+                              subtitle: Text(
+                                displayValue(ContactConfig.emailContact),
+                              ),
                             ),
                           ],
                         ),

@@ -26,4 +26,7 @@ ios/.symlinks/
 # Optional
 coverage/
 
+# Secrets
+secrets.json
+
 
