@@ -69,8 +69,10 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold> {
         ];
 
         final bool isTransparent = widget.transparentHeader && !_isScrolled;
-        final Color textColor = isTransparent ? Colors.white : const Color(0xFF1B3B36);
-        final Color backgroundColor = isTransparent ? Colors.transparent : const Color(0xFFF9F7F2);
+        final Color textColor =
+            isTransparent ? Colors.white : const Color(0xFF1B3B36);
+        final Color backgroundColor =
+            isTransparent ? Colors.transparent : const Color(0xFFF9F7F2);
 
         Widget buildNavLink(Map<String, Object> item) {
           final route = item['route'] as String;
@@ -89,7 +91,8 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold> {
                 fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
               ),
             ),
-            child: Text(loc.translate(item['labelKey'] as String).toUpperCase()),
+            child:
+                Text(loc.translate(item['labelKey'] as String).toUpperCase()),
           );
         }
 
@@ -130,7 +133,8 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold> {
                         ...navItems.map(buildNavLink),
                         PopupMenuButton<Locale>(
                           icon: Icon(Icons.language, color: textColor),
-                          onSelected: (locale) => widget.onLocaleChange?.call(locale),
+                          onSelected: (locale) =>
+                              widget.onLocaleChange?.call(locale),
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               value: const Locale('fr'),
@@ -149,7 +153,8 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold> {
                       children: [
                         PopupMenuButton<Locale>(
                           icon: Icon(Icons.language, color: textColor),
-                          onSelected: (locale) => widget.onLocaleChange?.call(locale),
+                          onSelected: (locale) =>
+                              widget.onLocaleChange?.call(locale),
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               value: const Locale('fr'),
@@ -164,7 +169,8 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold> {
                         Builder(
                           builder: (context) => IconButton(
                             icon: Icon(Icons.menu, color: textColor),
-                            onPressed: () => Scaffold.of(context).openEndDrawer(),
+                            onPressed: () =>
+                                Scaffold.of(context).openEndDrawer(),
                           ),
                         ),
                       ],
@@ -199,7 +205,8 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold> {
                         final bool selected = route == currentRoute;
                         return ListTile(
                           leading: Icon(item['icon'] as IconData),
-                          title: Text(loc.translate(item['labelKey'] as String)),
+                          title:
+                              Text(loc.translate(item['labelKey'] as String)),
                           selected: selected,
                           onTap: () {
                             Navigator.pop(context);
@@ -219,7 +226,7 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold> {
                 onNotification: _handleScrollNotification,
                 child: Column(
                   children: [
-                    Expanded(child: child),
+                    Expanded(child: widget.child),
                     const FooterWidget(),
                   ],
                 ),
