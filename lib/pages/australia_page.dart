@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import '../widgets/responsive_scaffold.dart';
 import '../localization.dart';
@@ -10,6 +8,29 @@ class AustraliaPage extends StatelessWidget {
 
   const AustraliaPage({super.key, this.onLocaleChange});
 
+  IconData _iconForKey(String key) {
+    switch (key) {
+      case 'australiaHeading1':
+        return Icons.flight_takeoff;
+      case 'australiaHeading2':
+        return Icons.assignment;
+      case 'australiaHeading3':
+        return Icons.directions_car;
+      case 'australiaHeading4':
+        return Icons.sim_card;
+      case 'australiaHeading5':
+        return Icons.support_agent;
+      case 'australiaHeading6':
+        return Icons.luggage;
+      case 'australiaHeading7':
+        return Icons.health_and_safety;
+      case 'australiaHeading8':
+        return Icons.tips_and_updates;
+      default:
+        return Icons.public;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
@@ -18,82 +39,28 @@ class AustraliaPage extends StatelessWidget {
       onLocaleChange: onLocaleChange,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final bool wide = constraints.maxWidth >= 900;
-          final bool medium = constraints.maxWidth >= 600 && constraints.maxWidth < 900;
           final double maxContentWidth = constraints.maxWidth < 1200 ? constraints.maxWidth : 1200;
           final double horizontalPadding = constraints.maxWidth < 600
               ? 16
               : constraints.maxWidth < 1024
                   ? 32
                   : 64;
-          final double contentWidth = math.max(0, maxContentWidth - horizontalPadding * 2);
-          // Sous-bannière
-          final Widget subBanner = Container(
-            height: 160,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Text(
-              loc.translate('australiaPageTitle'),
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-          );
-          // Fonction pour créer une carte à partir d'une clé de titre et de texte
-          Widget buildCard(String headingKey, String textKey) {
-            return Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      loc.translate(headingKey),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      loc.translate(textKey),
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-            );
+          int columns = 1;
+          if (constraints.maxWidth >= 1100) {
+            columns = 3;
+          } else if (constraints.maxWidth >= 600) {
+            columns = 2;
           }
-          final cards = [
-            buildCard('australiaHeading1', 'australiaText1'),
-            buildCard('australiaHeading2', 'australiaText2'),
-            buildCard('australiaHeading3', 'australiaText3'),
-            buildCard('australiaHeading4', 'australiaText4'),
-            buildCard('australiaHeading5', 'australiaText5'),
-            buildCard('australiaHeading6', 'australiaText6'),
-            buildCard('australiaHeading7', 'australiaText7'),
-            buildCard('australiaHeading8', 'australiaText8'),
+          final items = [
+            {'heading': 'australiaHeading1', 'text': 'australiaText1'},
+            {'heading': 'australiaHeading2', 'text': 'australiaText2'},
+            {'heading': 'australiaHeading3', 'text': 'australiaText3'},
+            {'heading': 'australiaHeading4', 'text': 'australiaText4'},
+            {'heading': 'australiaHeading5', 'text': 'australiaText5'},
+            {'heading': 'australiaHeading6', 'text': 'australiaText6'},
+            {'heading': 'australiaHeading7', 'text': 'australiaText7'},
+            {'heading': 'australiaHeading8', 'text': 'australiaText8'},
           ];
-
-          Widget buildGrid(int columns) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                subBanner,
-                const SizedBox(height: 16),
-                Wrap(
-                  spacing: 16,
-                  runSpacing: 16,
-                  children: cards
-                      .map((card) => SizedBox(
-                            width: (contentWidth - (columns - 1) * 16) / columns,
-                            child: card,
-                          ))
-                      .toList(),
-                ),
-              ],
-            );
-          }
-
           return SingleChildScrollView(
             child: Align(
               alignment: Alignment.topCenter,
@@ -102,23 +69,120 @@ class AustraliaPage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: horizontalPadding,
-                    vertical: 16,
+                    vertical: 24,
                   ),
-                  child: wide || medium
-                      ? buildGrid(2)
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            subBanner,
-                            const SizedBox(height: 16),
-                            ...cards,
-                          ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(height: ResponsiveScaffold.navHeight + 16),
+                      Text(
+                        loc.translate('australiaPageTitle'),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      const SizedBox(height: 32),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: columns,
+                          crossAxisSpacing: 24,
+                          mainAxisSpacing: 24,
+                          childAspectRatio: columns == 3 ? 0.75 : 0.9,
                         ),
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          final item = items[index];
+                          final headingKey = item['heading'] as String;
+                          final textKey = item['text'] as String;
+                          return _HoverInfoCard(
+                            icon: _iconForKey(headingKey),
+                            title: loc.translate(headingKey),
+                            content: loc.translate(textKey),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _HoverInfoCard extends StatefulWidget {
+  final IconData icon;
+  final String title;
+  final String content;
+
+  const _HoverInfoCard({
+    required this.icon,
+    required this.title,
+    required this.content,
+  });
+
+  @override
+  State<_HoverInfoCard> createState() => _HoverInfoCardState();
+}
+
+class _HoverInfoCardState extends State<_HoverInfoCard> {
+  bool _hovered = false;
+
+  void _setHovered(bool value) {
+    setState(() => _hovered = value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final accent = Theme.of(context).colorScheme.secondary;
+    return MouseRegion(
+      onEnter: (_) => _setHovered(true),
+      onExit: (_) => _setHovered(false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        transform: Matrix4.translationValues(0, _hovered ? -5 : 0, 0),
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 20,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 44,
+              width: 44,
+              decoration: BoxDecoration(
+                color: accent.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(widget.icon, color: accent),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              widget.title,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: Text(
+                widget.content,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

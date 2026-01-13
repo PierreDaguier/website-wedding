@@ -3,67 +3,85 @@ import 'package:google_fonts/google_fonts.dart';
 
 /// AppTheme définit la configuration visuelle de l'application.
 ///
-/// La palette de couleurs se base sur un ton principal rose et une
-/// typographie Montserrat chargée via Google Fonts. La barre
-/// d'application utilise un fond blanc et une couleur de texte sombre.
+/// La palette de couleurs s'inspire d'un univers élégant et naturel,
+/// avec un fond crème, un vert profond et des accents dorés.
 class AppTheme {
   /// Retourne le thème appliqué à l'application.
   ///
-  /// Le thème est basé sur une palette verdoyante et chaleureuse
-  /// rappelant la forêt tropicale, avec des touches dorées pour
-  /// l'élégance. La typographie utilise Montserrat via Google Fonts.
+  /// Le thème combine Playfair Display pour les titres et Montserrat
+  /// pour le corps du texte, avec une palette off-white et forêt.
   static ThemeData get theme {
     final base = ThemeData.light();
-    // Couleur principale (vert forêt) pour la palette de semences.
-    const seed = Color(0xFF3A5D38);
+    const primary = Color(0xFF1B3B36);
+    const background = Color(0xFFF9F7F2);
+    const accent = Color(0xFFD4AF37);
+
+    final textTheme = GoogleFonts.montserratTextTheme(base.textTheme).apply(
+      bodyColor: primary,
+      displayColor: primary,
+    );
+
+    final serif = GoogleFonts.playfairDisplay;
+
     return base.copyWith(
       colorScheme: ColorScheme.fromSeed(
-        seedColor: seed,
+        seedColor: primary,
         brightness: Brightness.light,
+        primary: primary,
+        secondary: accent,
+        background: background,
       ),
-      // Palette générale : vert forêt comme couleur primaire et un fond clair verdâtre.
-      primaryColor: seed,
-      scaffoldBackgroundColor: const Color(0xFFF3F7F3),
-      appBarTheme: const AppBarTheme(
-        elevation: 0,
-        backgroundColor: seed,
-        foregroundColor: Colors.white,
-      ),
-      textTheme: GoogleFonts.montserratTextTheme(base.textTheme).apply(
-        bodyColor: Colors.black87,
-        displayColor: Colors.black87,
+      primaryColor: primary,
+      scaffoldBackgroundColor: background,
+      textTheme: textTheme.copyWith(
+        displayLarge: serif(textStyle: textTheme.displayLarge),
+        displayMedium: serif(textStyle: textTheme.displayMedium),
+        displaySmall: serif(textStyle: textTheme.displaySmall),
+        headlineLarge: serif(textStyle: textTheme.headlineLarge),
+        headlineMedium: serif(textStyle: textTheme.headlineMedium),
+        headlineSmall: serif(textStyle: textTheme.headlineSmall),
+        titleLarge: serif(textStyle: textTheme.titleLarge),
+        titleMedium: serif(textStyle: textTheme.titleMedium),
+        titleSmall: serif(textStyle: textTheme.titleSmall),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: seed,
-          foregroundColor: Colors.white,
+          backgroundColor: accent,
+          foregroundColor: primary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(999),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+          textStyle: const TextStyle(
+            letterSpacing: 1.5,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: seed,
-        foregroundColor: Colors.white,
-      ),
-      // Définition d'un thème de carte par défaut pour harmoniser les marges,
-      // le rayon de bordure et l'ombre portée sur toutes les pages. Cela
-      // contribue à donner un aspect soigné et cohérent aux différentes
-      // sections du site.
-      // Utilise la version orientée données du CardTheme afin d'éviter des
-      // erreurs avec les dernières versions de Material 3. Cette définition
-      // harmonise les marges, la couleur, l'élévation et le rayon des
-      // bordures sur toutes les cartes du site.
-      cardTheme: CardThemeData(
-        color: Colors.white,
-        elevation: 2,
-        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 0.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.white,
+          side: const BorderSide(color: Colors.white, width: 1.2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(999),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
+          textStyle: const TextStyle(
+            letterSpacing: 2,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
-      cardColor: Colors.white,
-      dividerColor: Colors.grey.shade300,
+      cardTheme: CardThemeData(
+        color: Colors.white,
+        elevation: 0,
+        margin: EdgeInsets.zero,
+        shadowColor: Colors.black.withOpacity(0.05),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+      dividerColor: primary.withOpacity(0.1),
     );
   }
 }

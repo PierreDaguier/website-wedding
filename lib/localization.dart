@@ -29,6 +29,7 @@ class AppLocalizations {
       'navAustralia': 'Australie',
       'navContacts': 'Contacts',
       'homeTitle': 'Joanne & Pierre',
+      'homeDate': '1er août 2026',
       'homeWelcome': 'Bienvenue sur notre site de mariage !',
       'homeIntro':
           'Nous sommes ravis de partager avec vous cette journée exceptionnelle. Nous nous marierons le 1er août 2026 à Pethers Rainforest Retreat, sur le mont Tamborine, près de Brisbane. Sur ce site, vous trouverez toutes les informations nécessaires pour préparer votre venue et profiter de chaque moment.',
@@ -92,6 +93,7 @@ class AppLocalizations {
       'navAustralia': 'Australia',
       'navContacts': 'Contacts',
       'homeTitle': 'Joanne & Pierre',
+      'homeDate': 'August 1st, 2026',
       'homeWelcome': 'Welcome to our wedding website!',
       'homeIntro':
           'We are delighted to share this wonderful day with you. We will get married on 1 August 2026 at Pethers Rainforest Retreat on Mount Tamborine, near Brisbane. On this site you will find all the information you need to prepare your visit and enjoy every moment.',
