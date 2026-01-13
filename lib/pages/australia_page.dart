@@ -52,6 +52,7 @@ class AustraliaPage extends StatelessWidget {
               actionLabel: 'Apply on Official Govt Site',
               actionUrl: 'https://immi.homeaffairs.gov.au',
               primaryAction: true,
+              actionIsButton: true,
             ),
             _TravelInfoCardData(
               icon: Icons.directions_car,
@@ -73,6 +74,49 @@ class AustraliaPage extends StatelessWidget {
               actionLabel: 'Check what you can bring',
               actionUrl:
                   'https://www.abf.gov.au/entering-and-leaving-australia',
+              actionColor: Color(0xFFD4AF37),
+              actionIsButton: true,
+            ),
+            _TravelInfoCardData(
+              icon: Icons.shield,
+              title: 'Safety & Assistance',
+              summary: 'Important numbers for your stay.',
+              details: const TextSpan(
+                text: 'Emergencies (Police/Fire/Ambulance): 000\n'
+                    'Non-emergency Police: 131 444\n'
+                    'Roadside Assistance (RACQ): 13 19 05\n'
+                    'State Emergency Service (SES): 132 500',
+              ),
+            ),
+            _TravelInfoCardData(
+              icon: Icons.wifi,
+              title: 'Staying Connected',
+              summary: 'Get a local prepaid SIM card.',
+              details: const TextSpan(
+                text:
+                    'Telstra offers the best coverage in rural areas like Tamborine Mountain. You can buy a prepaid SIM at the airport or any convenience store.',
+              ),
+              actionLabel: 'Visit Telstra Site',
+              actionUrl:
+                  'https://www.telstra.com.au/mobile-phones/prepaid-mobiles',
+              actionIsButton: true,
+            ),
+            _TravelInfoCardData(
+              icon: Icons.map,
+              title: 'Getting Around',
+              summary: 'Public transport and car rentals.',
+              details: const TextSpan(
+                text:
+                    'Public Transport: Use TransLink for bus/train schedules in QLD.\n'
+                    'Car Rentals: We recommend booking at Brisbane Airport (BNE) via Avis, Hertz, or Europcar.',
+              ),
+              modalLinks: const [
+                _ModalLink(
+                  label: 'TransLink',
+                  url: 'https://translink.com.au/',
+                ),
+              ],
+              useModal: true,
             ),
           ];
           final double cardWidth =
@@ -128,6 +172,10 @@ class _TravelInfoCardData {
   final String? actionLabel;
   final String? actionUrl;
   final bool primaryAction;
+  final bool actionIsButton;
+  final Color? actionColor;
+  final bool useModal;
+  final List<_ModalLink> modalLinks;
 
   const _TravelInfoCardData({
     required this.icon,
@@ -137,7 +185,18 @@ class _TravelInfoCardData {
     this.actionLabel,
     this.actionUrl,
     this.primaryAction = false,
+    this.actionIsButton = false,
+    this.actionColor,
+    this.useModal = false,
+    this.modalLinks = const [],
   });
+}
+
+class _ModalLink {
+  final String label;
+  final String url;
+
+  const _ModalLink({required this.label, required this.url});
 }
 
 class _ExpandableInfoCard extends StatefulWidget {
@@ -161,6 +220,49 @@ class _ExpandableInfoCardState extends State<_ExpandableInfoCard> {
     setState(() => _expanded = !_expanded);
   }
 
+  void _showModal() {
+    final card = widget.card;
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        final bodyStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: const Color(0xFF1B3B36),
+              height: 1.6,
+            );
+        return AlertDialog(
+          title: Text(card.title),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text.rich(card.details, style: bodyStyle),
+              if (card.modalLinks.isNotEmpty) ...[
+                const SizedBox(height: 16),
+                for (final link in card.modalLinks)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: _ActionLink(
+                      label: link.label,
+                      url: link.url,
+                      primary: true,
+                      actionColor: Theme.of(context).colorScheme.secondary,
+                      isButton: true,
+                    ),
+                  ),
+              ],
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final accent = Theme.of(context).colorScheme.secondary;
@@ -174,7 +276,7 @@ class _ExpandableInfoCardState extends State<_ExpandableInfoCard> {
       onExit: (_) => _setHovered(false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: _toggleExpanded,
+        onTap: widget.card.useModal ? _showModal : _toggleExpanded,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           transform: Matrix4.translationValues(0, _hovered ? -5 : 0, 0),
@@ -234,10 +336,17 @@ class _ExpandableInfoCardState extends State<_ExpandableInfoCard> {
                         widget.card.actionUrl != null)
                       Padding(
                         padding: const EdgeInsets.only(top: 16),
-                        child: _ActionLink(
-                          label: widget.card.actionLabel!,
-                          url: widget.card.actionUrl!,
-                          primary: widget.card.primaryAction,
+                        child: Align(
+                          alignment: widget.card.actionIsButton
+                              ? Alignment.center
+                              : Alignment.centerLeft,
+                          child: _ActionLink(
+                            label: widget.card.actionLabel!,
+                            url: widget.card.actionUrl!,
+                            primary: widget.card.primaryAction,
+                            isButton: widget.card.actionIsButton,
+                            actionColor: widget.card.actionColor,
+                          ),
                         ),
                       ),
                   ],
@@ -259,11 +368,15 @@ class _ActionLink extends StatelessWidget {
   final String label;
   final String url;
   final bool primary;
+  final bool isButton;
+  final Color? actionColor;
 
   const _ActionLink({
     required this.label,
     required this.url,
     this.primary = false,
+    this.isButton = false,
+    this.actionColor,
   });
 
   @override
@@ -273,21 +386,28 @@ class _ActionLink extends StatelessWidget {
       uri: Uri.parse(url),
       target: LinkTarget.blank,
       builder: (context, followLink) {
-        if (primary) {
+        if (primary || isButton) {
+          final baseColor =
+              actionColor ?? theme.colorScheme.secondary;
           return ElevatedButton(
             onPressed: followLink,
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.resolveWith<Color>(
                 (states) {
                   if (states.contains(MaterialState.hovered)) {
-                    return theme.colorScheme.secondary.withOpacity(0.9);
+                    return baseColor.withOpacity(0.9);
                   }
-                  return theme.colorScheme.secondary;
+                  return baseColor;
                 },
               ),
               foregroundColor: MaterialStateProperty.all(Colors.white),
               padding: MaterialStateProperty.all(
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              ),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
             child: Text(label),
