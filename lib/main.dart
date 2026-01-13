@@ -7,12 +7,15 @@ import 'pages/home_page.dart';
 import 'pages/venue_page.dart';
 import 'pages/australia_page.dart';
 import 'pages/contact_page.dart';
+import 'config/config.dart';
 
 /// Point d'entrée de l'application.
 ///
 /// Configure le routeur et initialise l'application avec le thème
 /// défini dans `AppTheme`. Le debug banner est désactivé.
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ContactConfig.load();
   runApp(const WeddingApp());
 }
 
