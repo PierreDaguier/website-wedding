@@ -17,15 +17,14 @@ class FooterWidget extends StatelessWidget {
     final year = DateTime.now().year;
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
       color: Theme.of(context).primaryColor,
       child: Text(
-        // Utilise une clé de traduction pour le texte du pied de page.
         loc.translate('footerText').replaceAll('{year}', year.toString()),
-        style: Theme.of(context)
-            .textTheme
-            .bodySmall
-            ?.copyWith(color: Colors.white),
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white,
+              letterSpacing: 1.2,
+            ),
         textAlign: TextAlign.center,
       ),
     );

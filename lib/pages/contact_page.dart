@@ -9,6 +9,45 @@ class ContactPage extends StatelessWidget {
 
   const ContactPage({super.key, this.onLocaleChange});
 
+  Widget _contactItem({
+    required BuildContext context,
+    required IconData icon,
+    required String title,
+    required String value,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Icon(icon, size: 28, color: Theme.of(context).colorScheme.secondary),
+          const SizedBox(height: 12),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.titleSmall,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
@@ -25,6 +64,7 @@ class ContactPage extends StatelessWidget {
               : constraints.maxWidth < 1024
                   ? 32
                   : 64;
+          final bool isWide = constraints.maxWidth >= 700;
           return SingleChildScrollView(
             child: Align(
               alignment: Alignment.topCenter,
@@ -33,63 +73,68 @@ class ContactPage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: horizontalPadding,
-                    vertical: 16,
+                    vertical: 24,
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Sous-bannière de la page Contacts
-                      Container(
-                        height: 160,
-                        decoration: BoxDecoration(
-                          color:
-                              Theme.of(context).primaryColor.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Text(
-                          loc.translate('contactHeading'),
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
+                      SizedBox(height: ResponsiveScaffold.navHeight + 16),
+                      Text(
+                        loc.translate('contactHeading'),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                      const SizedBox(height: 16),
-                      Card(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: const Icon(Icons.person),
-                              title: Text(loc.translate('contactJoanne')),
-                              subtitle: Text(
-                                displayValue(ContactConfig.emailJoanne),
-                              ),
+                      const SizedBox(height: 32),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 24,
+                        runSpacing: 24,
+                        children: [
+                          SizedBox(
+                            width: isWide
+                                ? (maxContentWidth - 24) / 2
+                                : maxContentWidth,
+                            child: _contactItem(
+                              context: context,
+                              icon: Icons.person,
+                              title: loc.translate('contactJoanne'),
+                              value: displayValue(ContactConfig.emailJoanne),
                             ),
-                            const Divider(height: 1),
-                            ListTile(
-                              leading: const Icon(Icons.person),
-                              title: Text(loc.translate('contactPierre')),
-                              subtitle: Text(
-                                displayValue(ContactConfig.emailPierre),
-                              ),
+                          ),
+                          SizedBox(
+                            width: isWide
+                                ? (maxContentWidth - 24) / 2
+                                : maxContentWidth,
+                            child: _contactItem(
+                              context: context,
+                              icon: Icons.person,
+                              title: loc.translate('contactPierre'),
+                              value: displayValue(ContactConfig.emailPierre),
                             ),
-                            const Divider(height: 1),
-                            ListTile(
-                              leading: const Icon(Icons.phone),
-                              title: Text(loc.translate('contactPhone')),
-                              subtitle: Text(
-                                displayValue(ContactConfig.phoneContact),
-                              ),
+                          ),
+                          SizedBox(
+                            width: isWide
+                                ? (maxContentWidth - 24) / 2
+                                : maxContentWidth,
+                            child: _contactItem(
+                              context: context,
+                              icon: Icons.phone,
+                              title: loc.translate('contactPhone'),
+                              value: displayValue(ContactConfig.phoneContact),
                             ),
-                            const Divider(height: 1),
-                            ListTile(
-                              leading: const Icon(Icons.email),
-                              title: Text(loc.translate('contactEmailGeneral')),
-                              subtitle: Text(
-                                displayValue(ContactConfig.emailContact),
-                              ),
+                          ),
+                          SizedBox(
+                            width: isWide
+                                ? (maxContentWidth - 24) / 2
+                                : maxContentWidth,
+                            child: _contactItem(
+                              context: context,
+                              icon: Icons.email,
+                              title: loc.translate('contactEmailGeneral'),
+                              value: displayValue(ContactConfig.emailContact),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
