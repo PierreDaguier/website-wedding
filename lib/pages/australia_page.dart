@@ -17,7 +17,8 @@ class AustraliaPage extends StatelessWidget {
       onLocaleChange: onLocaleChange,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final double maxContentWidth = constraints.maxWidth < 1200 ? constraints.maxWidth : 1200;
+          final double maxContentWidth =
+              constraints.maxWidth < 1200 ? constraints.maxWidth : 1200;
           final double horizontalPadding = constraints.maxWidth < 600
               ? 16
               : constraints.maxWidth < 1024
@@ -69,7 +70,7 @@ class AustraliaPage extends StatelessWidget {
               ),
               actionLabel: loc.translate('australiaCustomsAction'),
               actionUrl:
-                  'https://www.abf.gov.au/entering-and-leaving-australia',
+                  'https://www.abf.gov.au/entering-and-leaving-australia/can-you-bring-it-in',
               actionColor: Color(0xFFD4AF37),
               actionIsButton: true,
             ),
@@ -377,8 +378,7 @@ class _ActionLink extends StatelessWidget {
       target: LinkTarget.blank,
       builder: (context, followLink) {
         if (primary || isButton) {
-          final baseColor =
-              actionColor ?? theme.colorScheme.secondary;
+          final baseColor = actionColor ?? theme.colorScheme.secondary;
           return ElevatedButton(
             onPressed: followLink,
             style: ButtonStyle(
