@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../widgets/responsive_scaffold.dart';
 import '../localization.dart';
+import '../widgets/venue_map_embed.dart';
 
 /// Page présentant les informations sur le lieu de la cérémonie et le
 /// programme détaillé de la journée.
@@ -171,6 +176,34 @@ class VenuePage extends StatelessWidget {
               ),
             );
           }
+
+          final timelineItems = [
+            {
+              'time': '15h30',
+              'text': loc.translate('venueProgram1'),
+              'icon': Icons.directions_car,
+            },
+            {
+              'time': '16h00',
+              'text': loc.translate('venueProgram2'),
+              'icon': Icons.favorite,
+            },
+            {
+              'time': '17h00',
+              'text': loc.translate('venueProgram3'),
+              'icon': Icons.local_bar,
+            },
+            {
+              'time': '19h00',
+              'text': loc.translate('venueProgram4'),
+              'icon': Icons.restaurant,
+            },
+            {
+              'time': '21h00',
+              'text': loc.translate('venueProgram5'),
+              'icon': Icons.music_note,
+            },
+          ];
 
           final timelineItems = [
             {

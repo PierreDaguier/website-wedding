@@ -34,12 +34,20 @@ class AppLocalizations {
       'homeIntro':
           'Nous sommes ravis de partager avec vous cette journée exceptionnelle. Nous nous marierons le 1er août 2026 à Pethers Rainforest Retreat, sur le mont Tamborine, près de Brisbane. Sur ce site, vous trouverez toutes les informations nécessaires pour préparer votre venue et profiter de chaque moment.',
       'venuePageTitle': 'Programme',
-      'venueHeading': 'Se rendre à la salle',
-      'venueDescription':
-          'La cérémonie et la réception auront lieu le 1er août 2026 à Pethers Rainforest Retreat, sur le mont Tamborine (Queensland), à environ 1h de Brisbane.',
-      'venueAccessHeading': 'Accès',
-      'venueAccessDescription':
-          'Depuis Brisbane : comptez environ 1h de route via la M1 jusqu’à Beenleigh, puis suivez la Mount Tamborine Road jusqu’au village.\nDepuis l’aéroport de Brisbane : location de voiture recommandée (environ 1h15 à 1h30 selon le trafic).\nTransport public : train jusqu’à Beenleigh puis taxi/VTC jusqu’au mont Tamborine (prévoir 45 min supplémentaires).\nDes navettes et excursions privées existent également au départ de Brisbane ou de la Gold Coast.',
+      'venueHeading': 'Getting to the Venue',
+      'venueSubtext':
+          'The ceremony and reception will be held on August 1st, 2026 at Pethers Rainforest Retreat.',
+      'venueAddressLabel': 'Address',
+      'venueAddressValue': '28B Geissmann St, Tamborine Mountain QLD 4272',
+      'venueAccessHeading': 'Access',
+      'venueAccessCar':
+          'By Car: 1hr drive from Brisbane via M1 and Mount Tamborine Rd.',
+      'venueAccessPlane':
+          'From Airport: 1h15 drive. Car rental highly recommended.',
+      'venueAccessTrain':
+          'Public Transport: Train to Beenleigh station, then a 45min Taxi/Uber to the mountain.',
+      'venueAccessShuttle':
+          'Shuttles: Private shuttles available from Brisbane/Gold Coast.',
       'venueProgramHeading': 'Programme de la journée',
       'venueProgram1': 'Arrivée des invités',
       'venueProgram2': 'Cérémonie',
@@ -82,7 +90,8 @@ class AppLocalizations {
       'languageEn': 'English',
       'homeCta': 'Découvrir le programme',
       // Titre utilisé pour le card de carte sur la page Programme
-      'mapTitle': 'Localisation',
+      'mapTitle': 'Location',
+      'venueCopyAddress': 'Copy',
       // Texte du pied de page, l'année actuelle remplacera {year}
       'footerText': '© {year} Joanne & Pierre – Tous droits réservés',
     },
@@ -98,12 +107,20 @@ class AppLocalizations {
       'homeIntro':
           'We are delighted to share this wonderful day with you. We will get married on 1 August 2026 at Pethers Rainforest Retreat on Mount Tamborine, near Brisbane. On this site you will find all the information you need to prepare your visit and enjoy every moment.',
       'venuePageTitle': 'Programme',
-      'venueHeading': 'Getting to the venue',
-      'venueDescription':
-          'The ceremony and reception will take place on 1 August 2026 at Pethers Rainforest Retreat on Mount Tamborine (Queensland), about one hour from Brisbane.',
+      'venueHeading': 'Getting to the Venue',
+      'venueSubtext':
+          'The ceremony and reception will be held on August 1st, 2026 at Pethers Rainforest Retreat.',
+      'venueAddressLabel': 'Address',
+      'venueAddressValue': '28B Geissmann St, Tamborine Mountain QLD 4272',
       'venueAccessHeading': 'Access',
-      'venueAccessDescription':
-          'From Brisbane: allow around 1 hour by car via the M1 to Beenleigh, then follow Mount Tamborine Road to the village.\nFrom Brisbane Airport: car hire is recommended (around 1h15–1h30 depending on traffic).\nPublic transport: train to Beenleigh, then taxi/ride share to Mount Tamborine (allow an extra 45 minutes).\nPrivate shuttles and tours also operate from Brisbane or the Gold Coast.',
+      'venueAccessCar':
+          'By Car: 1hr drive from Brisbane via M1 and Mount Tamborine Rd.',
+      'venueAccessPlane':
+          'From Airport: 1h15 drive. Car rental highly recommended.',
+      'venueAccessTrain':
+          'Public Transport: Train to Beenleigh station, then a 45min Taxi/Uber to the mountain.',
+      'venueAccessShuttle':
+          'Shuttles: Private shuttles available from Brisbane/Gold Coast.',
       'venueProgramHeading': 'Programme of the day',
       'venueProgram1': 'Guests arrive',
       'venueProgram2': 'Ceremony',
@@ -146,6 +163,7 @@ class AppLocalizations {
       'languageEn': 'English',
       'homeCta': 'Discover the programme',
       'mapTitle': 'Location',
+      'venueCopyAddress': 'Copy',
       'footerText': '© {year} Joanne & Pierre – All rights reserved',
     },
   };
