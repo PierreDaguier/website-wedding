@@ -33,52 +33,69 @@ class AppLocalizations {
       'homeWelcome': 'Bienvenue sur notre site de mariage !',
       'homeIntro':
           'Nous sommes ravis de partager avec vous cette journée exceptionnelle. Nous nous marierons le 1er août 2026 à Pethers Rainforest Retreat, sur le mont Tamborine, près de Brisbane. Sur ce site, vous trouverez toutes les informations nécessaires pour préparer votre venue et profiter de chaque moment.',
+      'homeAustraliaDescription':
+          'Conseils visa, douanes, sécurité et téléphonie pour préparer votre voyage.',
+      'homeContactsTitle': 'Contacts',
+      'homeContactsDescription':
+          'Toutes les coordonnées pour nous joindre facilement.',
       'venuePageTitle': 'Programme',
-      'venueHeading': 'Getting to the Venue',
+      'venueHeading': 'Accès au lieu',
+      'venueDescription':
+          'Toutes les infos pour venir à Pethers Rainforest Retreat et organiser votre trajet.',
       'venueSubtext':
-          'The ceremony and reception will be held on August 1st, 2026 at Pethers Rainforest Retreat.',
-      'venueAddressLabel': 'Address',
+          'La cérémonie et la réception auront lieu le 1er août 2026 à Pethers Rainforest Retreat.',
+      'venueAddressLabel': 'Adresse',
       'venueAddressValue': '28B Geissmann St, Tamborine Mountain QLD 4272',
-      'venueAccessHeading': 'Access',
+      'venueAccessHeading': 'Accès',
       'venueAccessCar':
-          'By Car: 1hr drive from Brisbane via M1 and Mount Tamborine Rd.',
+          'En voiture : 1h depuis Brisbane via la M1 et Mount Tamborine Rd.',
       'venueAccessPlane':
-          'From Airport: 1h15 drive. Car rental highly recommended.',
+          'Depuis l’aéroport : 1h15 de route. Location de voiture recommandée.',
       'venueAccessTrain':
-          'Public Transport: Train to Beenleigh station, then a 45min Taxi/Uber to the mountain.',
+          'Transports publics : train jusqu’à Beenleigh, puis 45 min de taxi/Uber.',
       'venueAccessShuttle':
-          'Shuttles: Private shuttles available from Brisbane/Gold Coast.',
+          'Navettes : privées disponibles depuis Brisbane/Gold Coast.',
       'venueProgramHeading': 'Programme de la journée',
       'venueProgram1': 'Arrivée des invités',
       'venueProgram2': 'Cérémonie',
       'venueProgram3': 'Cocktail',
       'venueProgram4': 'Dîner',
       'venueProgram5': 'Soirée dansante',
-      'australiaPageTitle': 'Travelling to Australia',
-      'australiaHeading1': 'Voyager vers l’Australie',
-      'australiaText1':
-          'Vérifiez la validité de votre passeport (valide au moins jusqu’à votre retour). Réservez vos vols à l’avance, surtout en haute saison. Pensez à l’assurance voyage et aux prises australiennes (type I).',
-      'australiaHeading2': 'Visa pour l’Australie (depuis la France)',
-      'australiaText2':
-          'La plupart des visiteurs français utilisent le visa eVisitor (subclass 651) ou l’ETA. Faites la demande en ligne plusieurs semaines avant le départ.\nLien officiel : https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing',
-      'australiaHeading3': 'Permis de conduire international',
-      'australiaText3':
-          'Si vous prévoyez de conduire, demandez un permis international gratuit depuis la France via l’ANTS. Délai variable, à anticiper.\nLien officiel : https://permisdeconduire.ants.gouv.fr/',
-      'australiaHeading4': 'Téléphonie : carte prépayée Telstra',
-      'australiaText4':
-          'La couverture mobile la plus large est souvent assurée par Telstra. Vous pouvez acheter une carte prépayée (SIM ou eSIM) en ligne ou à l’arrivée.\nLien officiel : https://www.telstra.com.au/mobile-phones/prepaid-mobiles',
-      'australiaHeading5': 'Numéros importants en Australie',
-      'australiaText5':
-          '• Urgences (police, pompiers, ambulance) : 000\n• Numéro international d’urgence (mobile) : 112\n• Police non urgente (QLD) : 131 444\n• Lifeline (soutien 24/7) : 13 11 14',
-      'australiaHeading6': 'Douane & bagages',
-      'australiaText6':
-          'L’Australie applique des règles strictes de biosécurité. Déclarez toute nourriture, plantes, produits animaux ou équipements de plein air.\nEn cabine : liquides dans des contenants de 100 ml max (sachet 1 L). Les batteries lithium doivent rester en cabine.\nInfos officielles : https://www.abf.gov.au/entering-and-leaving-australia',
-      'australiaHeading7': 'Santé & assurances',
-      'australiaText7':
-          'Souscrivez une assurance voyage couvrant les frais médicaux, l’annulation et la perte de bagages. Pensez à une protection solaire renforcée et à rester hydraté(e).',
-      'australiaHeading8': 'Conseils pratiques',
-      'australiaText8':
-          '• Décalage horaire : +8 à +10 heures selon la saison\n• Conduite à gauche (attention aux ronds-points)\n• Paiement par carte largement accepté\n• Prévoir une veste légère le soir sur le mont Tamborine',
+      'australiaPageTitle': 'Voyager en Australie',
+      'australiaVisaTitle': 'Visa touristique (eVisitor)',
+      'australiaVisaSummary':
+          'Gratuit pour les ressortissants européens. Valable 3 mois.',
+      'australiaVisaDetailsIntro':
+          'La plupart des passeports européens nécessitent un ',
+      'australiaVisaDetailsHighlight': 'eVisitor (Subclass 651)',
+      'australiaVisaDetailsOutro':
+          '. Il est entièrement gratuit et permet de séjourner jusqu’à 3 mois. N’utilisez pas d’agences tierces.',
+      'australiaVisaAction': 'Faire la demande officielle',
+      'australiaRoadTitle': 'Sur la route',
+      'australiaRoadSummary':
+          'On conduit à gauche. Limites strictes.',
+      'australiaRoadDetails':
+          'Gardez la gauche ! Les radars sont partout et la tolérance est faible. Votre permis français est généralement valide s’il est en anglais, sinon prenez un permis international.',
+      'australiaCustomsTitle': 'Douanes & frontières',
+      'australiaCustomsSummary':
+          'Règles strictes sur la nourriture et le végétal.',
+      'australiaCustomsDetails':
+          'L’Australie applique l’une des biosécurités les plus strictes au monde. Vous devez DÉCLARER toute nourriture, bois ou matière végétale sur votre carte d’arrivée. En cas de doute, déclarez.',
+      'australiaCustomsAction': 'Vérifier ce que vous pouvez apporter',
+      'australiaSafetyTitle': 'Sécurité & assistance',
+      'australiaSafetySummary': 'Numéros utiles pendant votre séjour.',
+      'australiaSafetyDetails':
+          'Urgences (police/pompiers/ambulance) : 000\nPolice non urgente : 131 444\nAssistance routière (RACQ) : 13 19 05\nService d’urgence de l’État (SES) : 132 500',
+      'australiaConnectedTitle': 'Rester connecté',
+      'australiaConnectedSummary': 'Acheter une carte SIM prépayée locale.',
+      'australiaConnectedDetails':
+          'Telstra offre la meilleure couverture dans les zones rurales comme le mont Tamborine. Vous pouvez acheter une SIM prépayée à l’aéroport ou dans une supérette.',
+      'australiaConnectedAction': 'Visiter le site Telstra',
+      'australiaTransportTitle': 'Se déplacer',
+      'australiaTransportSummary': 'Transports publics et location de voiture.',
+      'australiaTransportDetails':
+          'Transports publics : utilisez TransLink pour les horaires bus/train dans le Queensland.\nLocation de voiture : nous recommandons de réserver à l’aéroport de Brisbane (BNE) via Avis, Hertz ou Europcar.',
+      'australiaTransportLinkLabel': 'TransLink',
       'contactPageTitle': 'Contacts',
       'contactHeading': 'Nous contacter',
       'contactJoanne': 'Joanne',
@@ -90,8 +107,8 @@ class AppLocalizations {
       'languageEn': 'English',
       'homeCta': 'Découvrir le programme',
       // Titre utilisé pour le card de carte sur la page Programme
-      'mapTitle': 'Location',
-      'venueCopyAddress': 'Copy',
+      'mapTitle': 'Emplacement',
+      'venueCopyAddress': 'Copier',
       // Texte du pied de page, l'année actuelle remplacera {year}
       'footerText': '© {year} Joanne & Pierre – Tous droits réservés',
     },
@@ -106,8 +123,15 @@ class AppLocalizations {
       'homeWelcome': 'Welcome to our wedding website!',
       'homeIntro':
           'We are delighted to share this wonderful day with you. We will get married on 1 August 2026 at Pethers Rainforest Retreat on Mount Tamborine, near Brisbane. On this site you will find all the information you need to prepare your visit and enjoy every moment.',
+      'homeAustraliaDescription':
+          'Visa, customs, safety, and mobile tips to help you plan your trip.',
+      'homeContactsTitle': 'Contacts',
+      'homeContactsDescription':
+          'Get in touch with us and find all contact details.',
       'venuePageTitle': 'Programme',
       'venueHeading': 'Getting to the Venue',
+      'venueDescription':
+          'Everything you need to reach Pethers Rainforest Retreat and plan your journey.',
       'venueSubtext':
           'The ceremony and reception will be held on August 1st, 2026 at Pethers Rainforest Retreat.',
       'venueAddressLabel': 'Address',
@@ -128,6 +152,37 @@ class AppLocalizations {
       'venueProgram4': 'Dinner',
       'venueProgram5': 'Dance party',
       'australiaPageTitle': 'Travelling to Australia',
+      'australiaVisaTitle': 'Tourist Visa (eVisitor)',
+      'australiaVisaSummary': 'Free for European citizens. Valid for 3 months.',
+      'australiaVisaDetailsIntro':
+          'Most European passport holders need an ',
+      'australiaVisaDetailsHighlight': 'eVisitor (Subclass 651)',
+      'australiaVisaDetailsOutro':
+          '. It is completely free and allows you to stay for up to 3 months. Don\'t pay for third-party agencies!',
+      'australiaVisaAction': 'Apply on Official Govt Site',
+      'australiaRoadTitle': 'On the Road',
+      'australiaRoadSummary': 'We drive on the LEFT. Strict speed limits.',
+      'australiaRoadDetails':
+          'Keep left! Speed cameras are everywhere and tolerance is low. Your domestic license is usually valid if it\'s in English, otherwise carry an International Driving Permit.',
+      'australiaCustomsTitle': 'Customs & Borders',
+      'australiaCustomsSummary': 'Strict rules on food and organic items.',
+      'australiaCustomsDetails':
+          'Australia has the strictest biosecurity in the world. You must DECLARE all food, wood, or plant materials on your incoming passenger card. If in doubt, declare it.',
+      'australiaCustomsAction': 'Check what you can bring',
+      'australiaSafetyTitle': 'Safety & Assistance',
+      'australiaSafetySummary': 'Important numbers for your stay.',
+      'australiaSafetyDetails':
+          'Emergencies (Police/Fire/Ambulance): 000\nNon-emergency Police: 131 444\nRoadside Assistance (RACQ): 13 19 05\nState Emergency Service (SES): 132 500',
+      'australiaConnectedTitle': 'Staying Connected',
+      'australiaConnectedSummary': 'Get a local prepaid SIM card.',
+      'australiaConnectedDetails':
+          'Telstra offers the best coverage in rural areas like Tamborine Mountain. You can buy a prepaid SIM at the airport or any convenience store.',
+      'australiaConnectedAction': 'Visit Telstra Site',
+      'australiaTransportTitle': 'Getting Around',
+      'australiaTransportSummary': 'Public transport and car rentals.',
+      'australiaTransportDetails':
+          'Public Transport: Use TransLink for bus/train schedules in QLD.\nCar Rentals: We recommend booking at Brisbane Airport (BNE) via Avis, Hertz, or Europcar.',
+      'australiaTransportLinkLabel': 'TransLink',
       'australiaHeading1': 'Travelling to Australia',
       'australiaText1':
           'Check that your passport is valid for your full stay. Book flights early, especially in peak season. Remember a travel adaptor (type I outlets).',
