@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/link.dart';
 import '../widgets/responsive_scaffold.dart';
 import '../localization.dart';
 
@@ -7,29 +8,6 @@ class AustraliaPage extends StatelessWidget {
   final void Function(Locale)? onLocaleChange;
 
   const AustraliaPage({super.key, this.onLocaleChange});
-
-  IconData _iconForKey(String key) {
-    switch (key) {
-      case 'australiaHeading1':
-        return Icons.flight_takeoff;
-      case 'australiaHeading2':
-        return Icons.assignment;
-      case 'australiaHeading3':
-        return Icons.directions_car;
-      case 'australiaHeading4':
-        return Icons.sim_card;
-      case 'australiaHeading5':
-        return Icons.support_agent;
-      case 'australiaHeading6':
-        return Icons.luggage;
-      case 'australiaHeading7':
-        return Icons.health_and_safety;
-      case 'australiaHeading8':
-        return Icons.tips_and_updates;
-      default:
-        return Icons.public;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,16 +29,54 @@ class AustraliaPage extends StatelessWidget {
           } else if (constraints.maxWidth >= 600) {
             columns = 2;
           }
-          final items = [
-            {'heading': 'australiaHeading1', 'text': 'australiaText1'},
-            {'heading': 'australiaHeading2', 'text': 'australiaText2'},
-            {'heading': 'australiaHeading3', 'text': 'australiaText3'},
-            {'heading': 'australiaHeading4', 'text': 'australiaText4'},
-            {'heading': 'australiaHeading5', 'text': 'australiaText5'},
-            {'heading': 'australiaHeading6', 'text': 'australiaText6'},
-            {'heading': 'australiaHeading7', 'text': 'australiaText7'},
-            {'heading': 'australiaHeading8', 'text': 'australiaText8'},
+          const double spacing = 24;
+          final cards = [
+            _TravelInfoCardData(
+              icon: Icons.public,
+              title: 'Tourist Visa (eVisitor)',
+              summary: 'Free for European citizens. Valid for 3 months.',
+              details: const TextSpan(
+                text:
+                    'Most European passport holders need an ',
+                children: [
+                  TextSpan(
+                    text: 'eVisitor (Subclass 651)',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  TextSpan(
+                    text:
+                        '. It is completely free and allows you to stay for up to 3 months. Don\'t pay for third-party agencies!',
+                  ),
+                ],
+              ),
+              actionLabel: 'Apply on Official Govt Site',
+              actionUrl: 'https://immi.homeaffairs.gov.au',
+              primaryAction: true,
+            ),
+            _TravelInfoCardData(
+              icon: Icons.directions_car,
+              title: 'On the Road',
+              summary: 'We drive on the LEFT. Strict speed limits.',
+              details: const TextSpan(
+                text:
+                    'Keep left! Speed cameras are everywhere and tolerance is low. Your domestic license is usually valid if it\'s in English, otherwise carry an International Driving Permit.',
+              ),
+            ),
+            _TravelInfoCardData(
+              icon: Icons.eco,
+              title: 'Customs & Borders',
+              summary: 'Strict rules on food and organic items.',
+              details: const TextSpan(
+                text:
+                    'Australia has the strictest biosecurity in the world. You must DECLARE all food, wood, or plant materials on your incoming passenger card. If in doubt, declare it.',
+              ),
+              actionLabel: 'Check what you can bring',
+              actionUrl:
+                  'https://www.abf.gov.au/entering-and-leaving-australia',
+            ),
           ];
+          final double cardWidth =
+              (maxContentWidth - spacing * (columns - 1)) / columns;
           return SingleChildScrollView(
             child: Align(
               alignment: Alignment.topCenter,
@@ -81,26 +97,16 @@ class AustraliaPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 32),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: columns,
-                          crossAxisSpacing: 24,
-                          mainAxisSpacing: 24,
-                          childAspectRatio: columns == 3 ? 0.75 : 0.9,
-                        ),
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          final item = items[index];
-                          final headingKey = item['heading'] as String;
-                          final textKey = item['text'] as String;
-                          return _HoverInfoCard(
-                            icon: _iconForKey(headingKey),
-                            title: loc.translate(headingKey),
-                            content: loc.translate(textKey),
-                          );
-                        },
+                      Wrap(
+                        spacing: spacing,
+                        runSpacing: spacing,
+                        children: [
+                          for (final card in cards)
+                            SizedBox(
+                              width: cardWidth,
+                              child: _ExpandableInfoCard(card: card),
+                            ),
+                        ],
                       ),
                     ],
                   ),
@@ -114,76 +120,203 @@ class AustraliaPage extends StatelessWidget {
   }
 }
 
-class _HoverInfoCard extends StatefulWidget {
+class _TravelInfoCardData {
   final IconData icon;
   final String title;
-  final String content;
+  final String summary;
+  final TextSpan details;
+  final String? actionLabel;
+  final String? actionUrl;
+  final bool primaryAction;
 
-  const _HoverInfoCard({
+  const _TravelInfoCardData({
     required this.icon,
     required this.title,
-    required this.content,
+    required this.summary,
+    required this.details,
+    this.actionLabel,
+    this.actionUrl,
+    this.primaryAction = false,
   });
-
-  @override
-  State<_HoverInfoCard> createState() => _HoverInfoCardState();
 }
 
-class _HoverInfoCardState extends State<_HoverInfoCard> {
+class _ExpandableInfoCard extends StatefulWidget {
+  final _TravelInfoCardData card;
+
+  const _ExpandableInfoCard({required this.card});
+
+  @override
+  State<_ExpandableInfoCard> createState() => _ExpandableInfoCardState();
+}
+
+class _ExpandableInfoCardState extends State<_ExpandableInfoCard> {
   bool _hovered = false;
+  bool _expanded = false;
 
   void _setHovered(bool value) {
     setState(() => _hovered = value);
   }
 
+  void _toggleExpanded() {
+    setState(() => _expanded = !_expanded);
+  }
+
   @override
   Widget build(BuildContext context) {
     final accent = Theme.of(context).colorScheme.secondary;
+    const bodyColor = Color(0xFF1B3B36);
+    final detailsStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
+          color: bodyColor,
+          height: 1.6,
+        );
     return MouseRegion(
       onEnter: (_) => _setHovered(true),
       onExit: (_) => _setHovered(false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        transform: Matrix4.translationValues(0, _hovered ? -5 : 0, 0),
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 20,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 44,
-              width: 44,
-              decoration: BoxDecoration(
-                color: accent.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(14),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: _toggleExpanded,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          transform: Matrix4.translationValues(0, _hovered ? -5 : 0, 0),
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(_hovered ? 0.12 : 0.06),
+                blurRadius: _hovered ? 28 : 20,
+                offset: const Offset(0, 6),
               ),
-              child: Icon(widget.icon, color: accent),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              widget.title,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 12),
-            Expanded(
-              child: Text(
-                widget.content,
-                style: Theme.of(context).textTheme.bodyMedium,
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 44,
+                width: 44,
+                decoration: BoxDecoration(
+                  color: accent.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(widget.card.icon, color: accent),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              Text(
+                widget.card.title,
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: bodyColor,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                widget.card.summary,
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: bodyColor,
+                      height: 1.6,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              AnimatedCrossFade(
+                firstChild: const SizedBox.shrink(),
+                secondChild: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text.rich(
+                      widget.card.details,
+                      textAlign: TextAlign.left,
+                      style: detailsStyle,
+                    ),
+                    if (widget.card.actionLabel != null &&
+                        widget.card.actionUrl != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: _ActionLink(
+                          label: widget.card.actionLabel!,
+                          url: widget.card.actionUrl!,
+                          primary: widget.card.primaryAction,
+                        ),
+                      ),
+                  ],
+                ),
+                crossFadeState: _expanded
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
+                duration: const Duration(milliseconds: 200),
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class _ActionLink extends StatelessWidget {
+  final String label;
+  final String url;
+  final bool primary;
+
+  const _ActionLink({
+    required this.label,
+    required this.url,
+    this.primary = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Link(
+      uri: Uri.parse(url),
+      target: LinkTarget.blank,
+      builder: (context, followLink) {
+        if (primary) {
+          return ElevatedButton(
+            onPressed: followLink,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (states) {
+                  if (states.contains(MaterialState.hovered)) {
+                    return theme.colorScheme.secondary.withOpacity(0.9);
+                  }
+                  return theme.colorScheme.secondary;
+                },
+              ),
+              foregroundColor: MaterialStateProperty.all(Colors.white),
+              padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              ),
+            ),
+            child: Text(label),
+          );
+        }
+        return TextButton(
+          onPressed: followLink,
+          style: ButtonStyle(
+            textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+              (states) {
+                final isHovered = states.contains(MaterialState.hovered);
+                return theme.textTheme.bodyMedium?.copyWith(
+                  decoration: isHovered ? TextDecoration.underline : null,
+                );
+              },
+            ),
+            foregroundColor: MaterialStateProperty.resolveWith<Color>(
+              (states) {
+                if (states.contains(MaterialState.hovered)) {
+                  return theme.colorScheme.secondary;
+                }
+                return theme.textTheme.bodyMedium?.color ??
+                    theme.colorScheme.secondary;
+              },
+            ),
+          ),
+          child: Text(label),
+        );
+      },
     );
   }
 }

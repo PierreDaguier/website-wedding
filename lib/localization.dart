@@ -54,7 +54,7 @@ class AppLocalizations {
       'venueProgram3': 'Cocktail',
       'venueProgram4': 'Dîner',
       'venueProgram5': 'Soirée dansante',
-      'australiaPageTitle': 'Australie',
+      'australiaPageTitle': 'Travelling to Australia',
       'australiaHeading1': 'Voyager vers l’Australie',
       'australiaText1':
           'Vérifiez la validité de votre passeport (valide au moins jusqu’à votre retour). Réservez vos vols à l’avance, surtout en haute saison. Pensez à l’assurance voyage et aux prises australiennes (type I).',
@@ -127,7 +127,7 @@ class AppLocalizations {
       'venueProgram3': 'Cocktail',
       'venueProgram4': 'Dinner',
       'venueProgram5': 'Dance party',
-      'australiaPageTitle': 'Australia',
+      'australiaPageTitle': 'Travelling to Australia',
       'australiaHeading1': 'Travelling to Australia',
       'australiaText1':
           'Check that your passport is valid for your full stay. Book flights early, especially in peak season. Remember a travel adaptor (type I outlets).',

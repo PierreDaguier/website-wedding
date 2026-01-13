@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/link.dart';
 import '../widgets/responsive_scaffold.dart';
 import '../localization.dart';
 import '../config/config.dart';
@@ -13,7 +14,7 @@ class ContactPage extends StatelessWidget {
     required BuildContext context,
     required IconData icon,
     required String title,
-    required String value,
+    required List<Widget> details,
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -38,20 +39,70 @@ class ContactPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
-          Text(
-            value,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
+          ...details,
         ],
       ),
     );
   }
 
+  Widget _contactLink({
+    required BuildContext context,
+    required String value,
+    required Uri uri,
+  }) {
+    final theme = Theme.of(context);
+    if (value.isEmpty) {
+      return Text(
+        '—',
+        textAlign: TextAlign.center,
+        style: theme.textTheme.bodyLarge,
+      );
+    }
+    return Link(
+      uri: uri,
+      target: LinkTarget.blank,
+      builder: (context, followLink) => TextButton(
+        onPressed: followLink,
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(
+            theme.colorScheme.secondary.withOpacity(0.08),
+          ),
+          textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+            (states) {
+              final isHovered = states.contains(MaterialState.hovered);
+              return theme.textTheme.bodyLarge?.copyWith(
+                decoration: isHovered ? TextDecoration.underline : null,
+              );
+            },
+          ),
+          foregroundColor: MaterialStateProperty.resolveWith<Color>(
+            (states) {
+              if (states.contains(MaterialState.hovered)) {
+                return theme.colorScheme.secondary;
+              }
+              return theme.textTheme.bodyLarge?.color ??
+                  theme.colorScheme.secondary;
+            },
+          ),
+        ),
+        child: Text(value, textAlign: TextAlign.center),
+      ),
+    );
+  }
+
+  Uri _emailUri(String email) => Uri(
+        scheme: 'mailto',
+        path: email,
+      );
+
+  Uri _phoneUri(String phone) => Uri(
+        scheme: 'tel',
+        path: phone.replaceAll(RegExp(r'\s+'), ''),
+      );
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
-    String displayValue(String value) => value.isNotEmpty ? value : '—';
     return ResponsiveScaffold(
       titleKey: 'navContacts',
       onLocaleChange: onLocaleChange,
@@ -98,7 +149,18 @@ class ContactPage extends StatelessWidget {
                               context: context,
                               icon: Icons.person,
                               title: loc.translate('contactJoanne'),
-                              value: displayValue(ContactConfig.emailJoanne),
+                              details: [
+                                _contactLink(
+                                  context: context,
+                                  value: ContactConfig.emailJoanne,
+                                  uri: _emailUri(ContactConfig.emailJoanne),
+                                ),
+                                _contactLink(
+                                  context: context,
+                                  value: ContactConfig.phoneJoanne,
+                                  uri: _phoneUri(ContactConfig.phoneJoanne),
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
@@ -109,7 +171,18 @@ class ContactPage extends StatelessWidget {
                               context: context,
                               icon: Icons.person,
                               title: loc.translate('contactPierre'),
-                              value: displayValue(ContactConfig.emailPierre),
+                              details: [
+                                _contactLink(
+                                  context: context,
+                                  value: ContactConfig.emailPierre,
+                                  uri: _emailUri(ContactConfig.emailPierre),
+                                ),
+                                _contactLink(
+                                  context: context,
+                                  value: ContactConfig.phonePierre,
+                                  uri: _phoneUri(ContactConfig.phonePierre),
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
@@ -120,7 +193,13 @@ class ContactPage extends StatelessWidget {
                               context: context,
                               icon: Icons.phone,
                               title: loc.translate('contactPhone'),
-                              value: displayValue(ContactConfig.phoneContact),
+                              details: [
+                                _contactLink(
+                                  context: context,
+                                  value: ContactConfig.phoneContact,
+                                  uri: _phoneUri(ContactConfig.phoneContact),
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
@@ -131,7 +210,13 @@ class ContactPage extends StatelessWidget {
                               context: context,
                               icon: Icons.email,
                               title: loc.translate('contactEmailGeneral'),
-                              value: displayValue(ContactConfig.emailContact),
+                              details: [
+                                _contactLink(
+                                  context: context,
+                                  value: ContactConfig.emailContact,
+                                  uri: _emailUri(ContactConfig.emailContact),
+                                ),
+                              ],
                             ),
                           ),
                         ],
