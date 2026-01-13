@@ -25,8 +25,8 @@ class WeddingApp extends StatefulWidget {
 }
 
 class _WeddingAppState extends State<WeddingApp> {
-  /// Locale courante de l'application. Par défaut le français.
-  Locale _locale = const Locale('fr');
+  /// Locale courante de l'application. Par défaut l'anglais.
+  Locale _locale = const Locale('en');
 
   /// Change la langue de l'application.
   void _setLocale(Locale locale) {
