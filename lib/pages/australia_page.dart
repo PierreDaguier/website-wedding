@@ -68,6 +68,10 @@ class AustraliaPage extends StatelessWidget {
             buildCard('australiaHeading2', 'australiaText2'),
             buildCard('australiaHeading3', 'australiaText3'),
             buildCard('australiaHeading4', 'australiaText4'),
+            buildCard('australiaHeading5', 'australiaText5'),
+            buildCard('australiaHeading6', 'australiaText6'),
+            buildCard('australiaHeading7', 'australiaText7'),
+            buildCard('australiaHeading8', 'australiaText8'),
           ];
 
           Widget buildGrid(int columns) {
