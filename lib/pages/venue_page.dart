@@ -16,6 +16,33 @@ class VenuePage extends StatelessWidget {
 
   static const String _mapEmbedUrl =
       'https://www.google.com/maps?q=Pethers%20Rainforest%20Retreat%2C%20Tamborine%20Mountain&output=embed';
+  static const List<_ScheduleEntry> _scheduleEntries = [
+    _ScheduleEntry(
+      time: '15h30',
+      textKey: 'venueProgram1',
+      icon: Icons.directions_car,
+    ),
+    _ScheduleEntry(
+      time: '16h00',
+      textKey: 'venueProgram2',
+      icon: Icons.favorite,
+    ),
+    _ScheduleEntry(
+      time: '17h00',
+      textKey: 'venueProgram3',
+      icon: Icons.local_bar,
+    ),
+    _ScheduleEntry(
+      time: '19h00',
+      textKey: 'venueProgram4',
+      icon: Icons.restaurant,
+    ),
+    _ScheduleEntry(
+      time: '21h00',
+      textKey: 'venueProgram5',
+      icon: Icons.music_note,
+    ),
+  ];
 
   Widget _timelineItem({
     required BuildContext context,
@@ -255,34 +282,6 @@ class VenuePage extends StatelessWidget {
             );
           }
 
-          final scheduleItems = [
-            {
-              'time': '15h30',
-              'text': loc.translate('venueProgram1'),
-              'icon': Icons.directions_car,
-            },
-            {
-              'time': '16h00',
-              'text': loc.translate('venueProgram2'),
-              'icon': Icons.favorite,
-            },
-            {
-              'time': '17h00',
-              'text': loc.translate('venueProgram3'),
-              'icon': Icons.local_bar,
-            },
-            {
-              'time': '19h00',
-              'text': loc.translate('venueProgram4'),
-              'icon': Icons.restaurant,
-            },
-            {
-              'time': '21h00',
-              'text': loc.translate('venueProgram5'),
-              'icon': Icons.music_note,
-            },
-          ];
-
           return SingleChildScrollView(
             child: Align(
               alignment: Alignment.topCenter,
@@ -339,13 +338,13 @@ class VenuePage extends StatelessWidget {
                             ),
                           ),
                           Column(
-                            children: scheduleItems
+                            children: _scheduleEntries
                                 .map(
-                                  (item) => _timelineItem(
+                                  (entry) => _timelineItem(
                                     context: context,
-                                    time: item['time'] as String,
-                                    description: item['text'] as String,
-                                    icon: item['icon'] as IconData,
+                                    time: entry.time,
+                                    description: loc.translate(entry.textKey),
+                                    icon: entry.icon,
                                   ),
                                 )
                                 .toList(),
@@ -362,4 +361,16 @@ class VenuePage extends StatelessWidget {
       ),
     );
   }
+}
+
+class _ScheduleEntry {
+  const _ScheduleEntry({
+    required this.time,
+    required this.textKey,
+    required this.icon,
+  });
+
+  final String time;
+  final String textKey;
+  final IconData icon;
 }
