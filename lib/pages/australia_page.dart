@@ -33,45 +33,41 @@ class AustraliaPage extends StatelessWidget {
           final cards = [
             _TravelInfoCardData(
               icon: Icons.public,
-              title: 'Tourist Visa (eVisitor)',
-              summary: 'Free for European citizens. Valid for 3 months.',
-              details: const TextSpan(
-                text:
-                    'Most European passport holders need an ',
+              title: loc.translate('australiaVisaTitle'),
+              summary: loc.translate('australiaVisaSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaVisaDetailsIntro'),
                 children: [
                   TextSpan(
-                    text: 'eVisitor (Subclass 651)',
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                    text: loc.translate('australiaVisaDetailsHighlight'),
+                    style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
-                    text:
-                        '. It is completely free and allows you to stay for up to 3 months. Don\'t pay for third-party agencies!',
+                    text: loc.translate('australiaVisaDetailsOutro'),
                   ),
                 ],
               ),
-              actionLabel: 'Apply on Official Govt Site',
+              actionLabel: loc.translate('australiaVisaAction'),
               actionUrl: 'https://immi.homeaffairs.gov.au',
               primaryAction: true,
               actionIsButton: true,
             ),
             _TravelInfoCardData(
               icon: Icons.directions_car,
-              title: 'On the Road',
-              summary: 'We drive on the LEFT. Strict speed limits.',
-              details: const TextSpan(
-                text:
-                    'Keep left! Speed cameras are everywhere and tolerance is low. Your domestic license is usually valid if it\'s in English, otherwise carry an International Driving Permit.',
+              title: loc.translate('australiaRoadTitle'),
+              summary: loc.translate('australiaRoadSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaRoadDetails'),
               ),
             ),
             _TravelInfoCardData(
               icon: Icons.eco,
-              title: 'Customs & Borders',
-              summary: 'Strict rules on food and organic items.',
-              details: const TextSpan(
-                text:
-                    'Australia has the strictest biosecurity in the world. You must DECLARE all food, wood, or plant materials on your incoming passenger card. If in doubt, declare it.',
+              title: loc.translate('australiaCustomsTitle'),
+              summary: loc.translate('australiaCustomsSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaCustomsDetails'),
               ),
-              actionLabel: 'Check what you can bring',
+              actionLabel: loc.translate('australiaCustomsAction'),
               actionUrl:
                   'https://www.abf.gov.au/entering-and-leaving-australia',
               actionColor: Color(0xFFD4AF37),
@@ -79,40 +75,34 @@ class AustraliaPage extends StatelessWidget {
             ),
             _TravelInfoCardData(
               icon: Icons.shield,
-              title: 'Safety & Assistance',
-              summary: 'Important numbers for your stay.',
-              details: const TextSpan(
-                text: 'Emergencies (Police/Fire/Ambulance): 000\n'
-                    'Non-emergency Police: 131 444\n'
-                    'Roadside Assistance (RACQ): 13 19 05\n'
-                    'State Emergency Service (SES): 132 500',
+              title: loc.translate('australiaSafetyTitle'),
+              summary: loc.translate('australiaSafetySummary'),
+              details: TextSpan(
+                text: loc.translate('australiaSafetyDetails'),
               ),
             ),
             _TravelInfoCardData(
               icon: Icons.wifi,
-              title: 'Staying Connected',
-              summary: 'Get a local prepaid SIM card.',
-              details: const TextSpan(
-                text:
-                    'Telstra offers the best coverage in rural areas like Tamborine Mountain. You can buy a prepaid SIM at the airport or any convenience store.',
+              title: loc.translate('australiaConnectedTitle'),
+              summary: loc.translate('australiaConnectedSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaConnectedDetails'),
               ),
-              actionLabel: 'Visit Telstra Site',
+              actionLabel: loc.translate('australiaConnectedAction'),
               actionUrl:
                   'https://www.telstra.com.au/mobile-phones/prepaid-mobiles',
               actionIsButton: true,
             ),
             _TravelInfoCardData(
               icon: Icons.map,
-              title: 'Getting Around',
-              summary: 'Public transport and car rentals.',
-              details: const TextSpan(
-                text:
-                    'Public Transport: Use TransLink for bus/train schedules in QLD.\n'
-                    'Car Rentals: We recommend booking at Brisbane Airport (BNE) via Avis, Hertz, or Europcar.',
+              title: loc.translate('australiaTransportTitle'),
+              summary: loc.translate('australiaTransportSummary'),
+              details: TextSpan(
+                text: loc.translate('australiaTransportDetails'),
               ),
-              modalLinks: const [
+              modalLinks: [
                 _ModalLink(
-                  label: 'TransLink',
+                  label: loc.translate('australiaTransportLinkLabel'),
                   url: 'https://translink.com.au/',
                 ),
               ],
