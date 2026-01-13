@@ -56,8 +56,16 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold> {
         final navItems = [
           {'labelKey': 'navHome', 'icon': Icons.home, 'route': '/'},
           {'labelKey': 'navProgram', 'icon': Icons.event, 'route': '/venue'},
-          {'labelKey': 'navAustralia', 'icon': Icons.flight_takeoff, 'route': '/australia'},
-          {'labelKey': 'navContacts', 'icon': Icons.contact_mail, 'route': '/contact'},
+          {
+            'labelKey': 'navAustralia',
+            'icon': Icons.flight_takeoff,
+            'route': '/australia'
+          },
+          {
+            'labelKey': 'navContacts',
+            'icon': Icons.contact_mail,
+            'route': '/contact'
+          },
         ];
 
         final bool isTransparent = widget.transparentHeader && !_isScrolled;
