@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/responsive_scaffold.dart';
 import '../localization.dart';
+import '../config/config.dart';
 
 /// Page listant les différents moyens de contacter les mariés.
 class ContactPage extends StatelessWidget {
@@ -16,7 +17,8 @@ class ContactPage extends StatelessWidget {
       onLocaleChange: onLocaleChange,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final double maxContentWidth = constraints.maxWidth < 960 ? constraints.maxWidth : 960;
+          final double maxContentWidth =
+              constraints.maxWidth < 960 ? constraints.maxWidth : 960;
           final double horizontalPadding = constraints.maxWidth < 600
               ? 16
               : constraints.maxWidth < 1024
@@ -39,7 +41,8 @@ class ContactPage extends StatelessWidget {
                       Container(
                         height: 160,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor.withOpacity(0.15),
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.15),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         alignment: Alignment.centerLeft,
@@ -74,7 +77,8 @@ class ContactPage extends StatelessWidget {
                             ListTile(
                               leading: const Icon(Icons.email),
                               title: Text(loc.translate('contactEmailGeneral')),
-                              subtitle: const Text('mariage.joanne.pierre@example.com'),
+                              subtitle: const Text(
+                                  'mariage.joanne.pierre@example.com'),
                             ),
                           ],
                         ),
