@@ -1,10 +1,20 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ContactConfig {
-  // On utilise des getters pour récupérer la valeur en temps réel dans le .env
+  // --- TELEPHONES ---
+  // Ces getters vont chercher les clés dans ton fichier .env
   static String get phonePierre =>
-      dotenv.env['PHONE_PIERRE'] ?? 'Numéro non disponible';
-  static String get phoneJoanne => dotenv.env['PHONE_JOANNE'] ?? '';
-  static String get emailContact => dotenv.env['EMAIL_CONTACT'] ?? '';
-  // ... fais de même pour les autres
+      dotenv.env['PHONE_PIERRE'] ?? 'Non disponible';
+  static String get phoneJoanne =>
+      dotenv.env['PHONE_JOANNE'] ?? 'Non disponible';
+  static String get phoneContact =>
+      dotenv.env['PHONE_CONTACT'] ?? 'Non disponible';
+
+  // --- EMAILS ---
+  static String get emailPierre =>
+      dotenv.env['EMAIL_PIERRE'] ?? 'Non disponible';
+  static String get emailJoanne =>
+      dotenv.env['EMAIL_JOANNE'] ?? 'Non disponible';
+  static String get emailContact =>
+      dotenv.env['EMAIL_CONTACT'] ?? 'Non disponible';
 }
