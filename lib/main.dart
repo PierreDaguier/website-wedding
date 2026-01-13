@@ -7,18 +7,13 @@ import 'pages/home_page.dart';
 import 'pages/venue_page.dart';
 import 'pages/australia_page.dart';
 import 'pages/contact_page.dart';
-<<<<<<< HEAD
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-=======
-import 'config/config.dart';
->>>>>>> f69b603540461bbf81866f3bb372bee9420577b4
 
 /// Point d'entrée de l'application.
 ///
 /// Configure le routeur et initialise l'application avec le thème
 /// défini dans `AppTheme`. Le debug banner est désactivé.
 Future<void> main() async {
-<<<<<<< HEAD
   // 1. On s'assure que Flutter est bien initialisé avant de charger le fichier
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -30,10 +25,6 @@ Future<void> main() async {
   }
 
   // 3. On lance l'app
-=======
-  WidgetsFlutterBinding.ensureInitialized();
-  await ContactConfig.load();
->>>>>>> f69b603540461bbf81866f3bb372bee9420577b4
   runApp(const WeddingApp());
 }
 
