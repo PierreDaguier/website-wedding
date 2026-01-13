@@ -166,14 +166,19 @@ class HomePage extends StatelessWidget {
                           const SizedBox(height: 48),
                           LayoutBuilder(
                             builder: (context, innerConstraints) {
+                              final bool threeColumns = innerConstraints.maxWidth >= 1100;
+                              final double maxWidth = innerConstraints.maxWidth;
+                              final double cardWidth = threeColumns
+                                  ? (maxWidth - 48) / 3
+                                  : isWide
+                                      ? (maxWidth - 24) / 2
+                                      : maxWidth;
                               return Wrap(
                                 spacing: 24,
                                 runSpacing: 24,
                                 children: [
                                   SizedBox(
-                                    width: isWide
-                                        ? (innerConstraints.maxWidth - 24) / 2
-                                        : innerConstraints.maxWidth,
+                                    width: cardWidth,
                                     child: _infoCard(
                                       context: context,
                                       title: loc.translate('venueHeading'),
@@ -183,15 +188,23 @@ class HomePage extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: isWide
-                                        ? (innerConstraints.maxWidth - 24) / 2
-                                        : innerConstraints.maxWidth,
+                                    width: cardWidth,
                                     child: _infoCard(
                                       context: context,
-                                      title: loc.translate('australiaHeading1'),
-                                      content: loc.translate('australiaText1'),
+                                      title: loc.translate('australiaPageTitle'),
+                                      content: loc.translate('homeAustraliaDescription'),
                                       buttonLabel: loc.translate('navAustralia'),
                                       buttonRoute: '/australia',
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: cardWidth,
+                                    child: _infoCard(
+                                      context: context,
+                                      title: loc.translate('homeContactsTitle'),
+                                      content: loc.translate('homeContactsDescription'),
+                                      buttonLabel: loc.translate('navContacts'),
+                                      buttonRoute: '/contacts',
                                     ),
                                   ),
                                 ],

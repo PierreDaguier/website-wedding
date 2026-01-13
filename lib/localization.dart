@@ -33,8 +33,15 @@ class AppLocalizations {
       'homeWelcome': 'Bienvenue sur notre site de mariage !',
       'homeIntro':
           'Nous sommes ravis de partager avec vous cette journée exceptionnelle. Nous nous marierons le 1er août 2026 à Pethers Rainforest Retreat, sur le mont Tamborine, près de Brisbane. Sur ce site, vous trouverez toutes les informations nécessaires pour préparer votre venue et profiter de chaque moment.',
+      'homeAustraliaDescription':
+          'Conseils visa, douanes, sécurité et téléphonie pour préparer votre voyage.',
+      'homeContactsTitle': 'Contacts',
+      'homeContactsDescription':
+          'Toutes les coordonnées pour nous joindre facilement.',
       'venuePageTitle': 'Programme',
       'venueHeading': 'Accès au lieu',
+      'venueDescription':
+          'Toutes les infos pour venir à Pethers Rainforest Retreat et organiser votre trajet.',
       'venueSubtext':
           'La cérémonie et la réception auront lieu le 1er août 2026 à Pethers Rainforest Retreat.',
       'venueAddressLabel': 'Adresse',
@@ -116,8 +123,15 @@ class AppLocalizations {
       'homeWelcome': 'Welcome to our wedding website!',
       'homeIntro':
           'We are delighted to share this wonderful day with you. We will get married on 1 August 2026 at Pethers Rainforest Retreat on Mount Tamborine, near Brisbane. On this site you will find all the information you need to prepare your visit and enjoy every moment.',
+      'homeAustraliaDescription':
+          'Visa, customs, safety, and mobile tips to help you plan your trip.',
+      'homeContactsTitle': 'Contacts',
+      'homeContactsDescription':
+          'Get in touch with us and find all contact details.',
       'venuePageTitle': 'Programme',
       'venueHeading': 'Getting to the Venue',
+      'venueDescription':
+          'Everything you need to reach Pethers Rainforest Retreat and plan your journey.',
       'venueSubtext':
           'The ceremony and reception will be held on August 1st, 2026 at Pethers Rainforest Retreat.',
       'venueAddressLabel': 'Address',
