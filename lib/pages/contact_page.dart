@@ -95,11 +95,6 @@ class ContactPage extends StatelessWidget {
         path: email,
       );
 
-  Uri _phoneUri(String phone) => Uri(
-        scheme: 'tel',
-        path: phone.replaceAll(RegExp(r'\s+'), ''),
-      );
-
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
@@ -142,74 +137,11 @@ class ContactPage extends StatelessWidget {
                         runSpacing: 24,
                         children: [
                           SizedBox(
-                            width: isWide
-                                ? (maxContentWidth - 24) / 2
-                                : maxContentWidth,
-                            child: _contactItem(
-                              context: context,
-                              icon: Icons.person,
-                              title: loc.translate('contactJoanne'),
-                              details: [
-                                _contactLink(
-                                  context: context,
-                                  value: ContactConfig.emailJoanne,
-                                  uri: _emailUri(ContactConfig.emailJoanne),
-                                ),
-                                _contactLink(
-                                  context: context,
-                                  value: ContactConfig.phoneJoanne,
-                                  uri: _phoneUri(ContactConfig.phoneJoanne),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: isWide
-                                ? (maxContentWidth - 24) / 2
-                                : maxContentWidth,
-                            child: _contactItem(
-                              context: context,
-                              icon: Icons.person,
-                              title: loc.translate('contactPierre'),
-                              details: [
-                                _contactLink(
-                                  context: context,
-                                  value: ContactConfig.emailPierre,
-                                  uri: _emailUri(ContactConfig.emailPierre),
-                                ),
-                                _contactLink(
-                                  context: context,
-                                  value: ContactConfig.phonePierre,
-                                  uri: _phoneUri(ContactConfig.phonePierre),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: isWide
-                                ? (maxContentWidth - 24) / 2
-                                : maxContentWidth,
-                            child: _contactItem(
-                              context: context,
-                              icon: Icons.phone,
-                              title: loc.translate('contactPhone'),
-                              details: [
-                                _contactLink(
-                                  context: context,
-                                  value: ContactConfig.phoneContact,
-                                  uri: _phoneUri(ContactConfig.phoneContact),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: isWide
-                                ? (maxContentWidth - 24) / 2
-                                : maxContentWidth,
+                            width: isWide ? (maxContentWidth - 24) / 2 : 420,
                             child: _contactItem(
                               context: context,
                               icon: Icons.email,
-                              title: loc.translate('contactEmailGeneral'),
+                              title: loc.translate('contactEmail'),
                               details: [
                                 _contactLink(
                                   context: context,
