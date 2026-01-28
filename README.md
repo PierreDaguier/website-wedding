@@ -2,23 +2,19 @@
 
 A new Flutter project.
 
-## Secrets
+## Configuration (dart-define)
 
-Les renseignements personnels sont chargés via un fichier `secrets.json` non
-versionné. Pour le créer :
-
-1. Dupliquez `secrets.sample.json` en `secrets.json`.
-2. Remplissez les valeurs.
-3. Lancez l'app avec `--dart-define-from-file=secrets.json` :
+Les renseignements personnels sont fournis via des variables `--dart-define`
+(ex: `EMAIL_CONTACT`). Pour lancer l'app :
 
 ```
-flutter run -d chrome --dart-define-from-file=secrets.json
+flutter run -d chrome --dart-define=EMAIL_CONTACT=joannepierre2026@gmail.com
 ```
 
 Pour une build web :
 
 ```
-flutter build web --dart-define-from-file=secrets.json
+flutter build web --dart-define=EMAIL_CONTACT=joannepierre2026@gmail.com
 ```
 
 ## Getting Started
