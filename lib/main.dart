@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'theme.dart';
 import 'localization.dart';
 import 'pages/home_page.dart';
 import 'pages/venue_page.dart';
 import 'pages/australia_page.dart';
 import 'pages/contact_page.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Point d'entrée de l'application.
 ///
@@ -17,11 +18,13 @@ Future<void> main() async {
   // 1. On s'assure que Flutter est bien initialisé avant de charger le fichier
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 2. On charge le fichier .env
-  try {
-    await dotenv.load(fileName: ".env");
-  } catch (e) {
-    print("Erreur de chargement du .env: $e");
+  // 2. On charge le fichier .env uniquement hors web
+  if (!kIsWeb) {
+    try {
+      await dotenv.load(fileName: ".env");
+    } catch (e) {
+      // Optionnel : ignorer si le fichier .env n'existe pas.
+    }
   }
 
   // 3. On lance l'app

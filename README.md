@@ -2,23 +2,19 @@
 
 A new Flutter project.
 
-## Configuration .env
+## Configuration (dart-define)
 
-Les renseignements personnels sont chargés via un fichier `.env` non versionné.
-Pour le créer :
-
-1. Créez un fichier `.env` à la racine.
-2. Remplissez les valeurs.
-3. Lancez l'app normalement :
+Les renseignements personnels sont fournis via des variables `--dart-define`
+(ex: `EMAIL_CONTACT`). Pour lancer l'app :
 
 ```
-flutter run -d chrome
+flutter run -d chrome --dart-define=EMAIL_CONTACT=joannepierre2026@gmail.com
 ```
 
 Pour une build web :
 
 ```
-flutter build web
+flutter build web --dart-define=EMAIL_CONTACT=joannepierre2026@gmail.com
 ```
 
 ## Getting Started
