@@ -2,23 +2,23 @@
 
 A new Flutter project.
 
-## Secrets
+## Configuration .env
 
-Les renseignements personnels sont chargés via un fichier `secrets.json` non
-versionné. Pour le créer :
+Les renseignements personnels sont chargés via un fichier `.env` non versionné.
+Pour le créer :
 
-1. Dupliquez `secrets.sample.json` en `secrets.json`.
+1. Créez un fichier `.env` à la racine.
 2. Remplissez les valeurs.
-3. Lancez l'app avec `--dart-define-from-file=secrets.json` :
+3. Lancez l'app normalement :
 
 ```
-flutter run -d chrome --dart-define-from-file=secrets.json
+flutter run -d chrome
 ```
 
 Pour une build web :
 
 ```
-flutter build web --dart-define-from-file=secrets.json
+flutter build web
 ```
 
 ## Getting Started
