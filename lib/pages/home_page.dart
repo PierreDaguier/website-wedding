@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -83,7 +83,8 @@ class HomePage extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final double maxContentWidth = _maxContentWidth(constraints.maxWidth);
-          final double horizontalPadding = _horizontalPadding(constraints.maxWidth);
+          final double horizontalPadding =
+              _horizontalPadding(constraints.maxWidth);
           final bool isWide = constraints.maxWidth >= 900;
           return SingleChildScrollView(
             child: Column(
@@ -99,9 +100,10 @@ class HomePage extends StatelessWidget {
                         fit: BoxFit.cover,
                         alignment: Alignment.center,
                       ),
-                      Container(color: Colors.black.withOpacity(0.3)),
+                      Container(color: Colors.black.withValues(alpha: 0.3)),
                       Padding(
-                        padding: EdgeInsets.only(top: ResponsiveScaffold.navHeight),
+                        padding: const EdgeInsets.only(
+                            top: ResponsiveScaffold.navHeight),
                         child: Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -131,7 +133,8 @@ class HomePage extends StatelessWidget {
                               const SizedBox(height: 32),
                               OutlinedButton(
                                 onPressed: () => context.go('/venue'),
-                                child: Text(loc.translate('homeCta').toUpperCase()),
+                                child: Text(
+                                    loc.translate('homeCta').toUpperCase()),
                               ),
                             ],
                           ),
@@ -166,7 +169,8 @@ class HomePage extends StatelessWidget {
                           const SizedBox(height: 48),
                           LayoutBuilder(
                             builder: (context, innerConstraints) {
-                              final bool threeColumns = innerConstraints.maxWidth >= 1100;
+                              final bool threeColumns =
+                                  innerConstraints.maxWidth >= 1100;
                               final double maxWidth = innerConstraints.maxWidth;
                               final double cardWidth = threeColumns
                                   ? (maxWidth - 48) / 3
@@ -182,7 +186,8 @@ class HomePage extends StatelessWidget {
                                     child: _infoCard(
                                       context: context,
                                       title: loc.translate('venueHeading'),
-                                      content: loc.translate('venueDescription'),
+                                      content:
+                                          loc.translate('venueDescription'),
                                       buttonLabel: loc.translate('navProgram'),
                                       buttonRoute: '/venue',
                                     ),
@@ -191,9 +196,12 @@ class HomePage extends StatelessWidget {
                                     width: cardWidth,
                                     child: _infoCard(
                                       context: context,
-                                      title: loc.translate('australiaPageTitle'),
-                                      content: loc.translate('homeAustraliaDescription'),
-                                      buttonLabel: loc.translate('navAustralia'),
+                                      title:
+                                          loc.translate('australiaPageTitle'),
+                                      content: loc.translate(
+                                          'homeAustraliaDescription'),
+                                      buttonLabel:
+                                          loc.translate('navAustralia'),
                                       buttonRoute: '/australia',
                                     ),
                                   ),
@@ -202,7 +210,8 @@ class HomePage extends StatelessWidget {
                                     child: _infoCard(
                                       context: context,
                                       title: loc.translate('homeContactsTitle'),
-                                      content: loc.translate('homeContactsDescription'),
+                                      content: loc
+                                          .translate('homeContactsDescription'),
                                       buttonLabel: loc.translate('navContacts'),
                                       buttonRoute: '/contacts',
                                     ),

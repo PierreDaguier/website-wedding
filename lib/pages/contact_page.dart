@@ -23,7 +23,7 @@ class ContactPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -64,20 +64,20 @@ class ContactPage extends StatelessWidget {
       builder: (context, followLink) => TextButton(
         onPressed: followLink,
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(
-            theme.colorScheme.secondary.withOpacity(0.08),
+          overlayColor: WidgetStateProperty.all(
+            theme.colorScheme.secondary.withValues(alpha: 0.08),
           ),
-          textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+          textStyle: WidgetStateProperty.resolveWith<TextStyle?>(
             (states) {
-              final isHovered = states.contains(MaterialState.hovered);
+              final isHovered = states.contains(WidgetState.hovered);
               return theme.textTheme.bodyLarge?.copyWith(
                 decoration: isHovered ? TextDecoration.underline : null,
               );
             },
           ),
-          foregroundColor: MaterialStateProperty.resolveWith<Color>(
+          foregroundColor: WidgetStateProperty.resolveWith<Color>(
             (states) {
-              if (states.contains(MaterialState.hovered)) {
+              if (states.contains(WidgetState.hovered)) {
                 return theme.colorScheme.secondary;
               }
               return theme.textTheme.bodyLarge?.color ??
@@ -124,7 +124,7 @@ class ContactPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: ResponsiveScaffold.navHeight + 16),
+                      const SizedBox(height: ResponsiveScaffold.navHeight + 16),
                       Text(
                         loc.translate('contactHeading'),
                         textAlign: TextAlign.center,

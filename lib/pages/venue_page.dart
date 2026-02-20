@@ -80,7 +80,7 @@ class VenuePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 20,
                     offset: const Offset(0, 4),
                   ),
@@ -142,7 +142,8 @@ class VenuePage extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final bool wide = constraints.maxWidth >= 900;
-          final double maxContentWidth = constraints.maxWidth < 1200 ? constraints.maxWidth : 1200;
+          final double maxContentWidth =
+              constraints.maxWidth < 1200 ? constraints.maxWidth : 1200;
           final double horizontalPadding = constraints.maxWidth < 600
               ? 16
               : constraints.maxWidth < 1024
@@ -172,7 +173,7 @@ class VenuePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 20,
                     offset: const Offset(0, 4),
                   ),
@@ -257,7 +258,7 @@ class VenuePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 20,
                     offset: const Offset(0, 4),
                   ),
@@ -295,7 +296,7 @@ class VenuePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: ResponsiveScaffold.navHeight + 16),
+                      const SizedBox(height: ResponsiveScaffold.navHeight + 16),
                       const SizedBox(height: 16),
                       IntrinsicHeight(
                         child: wide
@@ -334,7 +335,7 @@ class VenuePage extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .primary
-                                  .withOpacity(0.2),
+                                  .withValues(alpha: 0.2),
                             ),
                           ),
                           Column(

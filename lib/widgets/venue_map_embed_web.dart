@@ -1,5 +1,5 @@
-import 'dart:html' as html;
 import 'dart:ui_web' as ui;
+import 'package:web/web.dart' as web;
 
 import 'package:flutter/widgets.dart';
 
@@ -8,16 +8,16 @@ bool _mapRegistered = false;
 
 Widget venueMapEmbed(String mapUrl) {
   if (!_mapRegistered) {
-    ui.platformViewRegistry.registerViewFactory(
-      _mapViewType,
-      (int viewId) => html.IFrameElement()
-        ..src = mapUrl
-        ..style.border = '0'
-        ..style.width = '100%'
-        ..style.height = '100%'
-        ..style.borderRadius = '16px'
-        ..setAttribute('loading', 'lazy'),
-    );
+    ui.platformViewRegistry.registerViewFactory(_mapViewType, (int viewId) {
+      final iframe = web.HTMLIFrameElement();
+      iframe.src = mapUrl;
+      iframe.style.border = '0';
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.borderRadius = '16px';
+      iframe.setAttribute('loading', 'lazy');
+      return iframe;
+    });
     _mapRegistered = true;
   }
 

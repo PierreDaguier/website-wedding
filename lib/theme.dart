@@ -21,7 +21,7 @@ class AppTheme {
       displayColor: primary,
     );
 
-    final serif = GoogleFonts.playfairDisplay;
+    const serif = GoogleFonts.playfairDisplay;
 
     return base.copyWith(
       colorScheme: ColorScheme.fromSeed(
@@ -29,7 +29,7 @@ class AppTheme {
         brightness: Brightness.light,
         primary: primary,
         secondary: accent,
-        background: background,
+        surface: background,
       ),
       primaryColor: primary,
       scaffoldBackgroundColor: background,
@@ -76,12 +76,12 @@ class AppTheme {
         color: Colors.white,
         elevation: 0,
         margin: EdgeInsets.zero,
-        shadowColor: Colors.black.withOpacity(0.05),
+        shadowColor: Colors.black.withValues(alpha: 0.05),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
       ),
-      dividerColor: primary.withOpacity(0.1),
+      dividerColor: primary.withValues(alpha: 0.1),
     );
   }
 }

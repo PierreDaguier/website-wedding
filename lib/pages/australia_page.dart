@@ -71,7 +71,7 @@ class AustraliaPage extends StatelessWidget {
               actionLabel: loc.translate('australiaCustomsAction'),
               actionUrl:
                   'https://www.abf.gov.au/entering-and-leaving-australia/can-you-bring-it-in',
-              actionColor: Color(0xFFD4AF37),
+              actionColor: const Color(0xFFD4AF37),
               actionIsButton: true,
             ),
             _TravelInfoCardData(
@@ -125,7 +125,7 @@ class AustraliaPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: ResponsiveScaffold.navHeight + 16),
+                      const SizedBox(height: ResponsiveScaffold.navHeight + 16),
                       Text(
                         loc.translate('australiaPageTitle'),
                         textAlign: TextAlign.center,
@@ -277,7 +277,7 @@ class _ExpandableInfoCardState extends State<_ExpandableInfoCard> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(_hovered ? 0.12 : 0.06),
+                color: Colors.black.withValues(alpha: _hovered ? 0.12 : 0.06),
                 blurRadius: _hovered ? 28 : 20,
                 offset: const Offset(0, 6),
               ),
@@ -290,7 +290,7 @@ class _ExpandableInfoCardState extends State<_ExpandableInfoCard> {
                 height: 44,
                 width: 44,
                 decoration: BoxDecoration(
-                  color: accent.withOpacity(0.15),
+                  color: accent.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(widget.card.icon, color: accent),
@@ -382,19 +382,19 @@ class _ActionLink extends StatelessWidget {
           return ElevatedButton(
             onPressed: followLink,
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              backgroundColor: WidgetStateProperty.resolveWith<Color>(
                 (states) {
-                  if (states.contains(MaterialState.hovered)) {
-                    return baseColor.withOpacity(0.9);
+                  if (states.contains(WidgetState.hovered)) {
+                    return baseColor.withValues(alpha: 0.9);
                   }
                   return baseColor;
                 },
               ),
-              foregroundColor: MaterialStateProperty.all(Colors.white),
-              padding: MaterialStateProperty.all(
+              foregroundColor: WidgetStateProperty.all(Colors.white),
+              padding: WidgetStateProperty.all(
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
-              shape: MaterialStateProperty.all(
+              shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -406,17 +406,17 @@ class _ActionLink extends StatelessWidget {
         return TextButton(
           onPressed: followLink,
           style: ButtonStyle(
-            textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+            textStyle: WidgetStateProperty.resolveWith<TextStyle?>(
               (states) {
-                final isHovered = states.contains(MaterialState.hovered);
+                final isHovered = states.contains(WidgetState.hovered);
                 return theme.textTheme.bodyMedium?.copyWith(
                   decoration: isHovered ? TextDecoration.underline : null,
                 );
               },
             ),
-            foregroundColor: MaterialStateProperty.resolveWith<Color>(
+            foregroundColor: WidgetStateProperty.resolveWith<Color>(
               (states) {
-                if (states.contains(MaterialState.hovered)) {
+                if (states.contains(WidgetState.hovered)) {
                   return theme.colorScheme.secondary;
                 }
                 return theme.textTheme.bodyMedium?.color ??
